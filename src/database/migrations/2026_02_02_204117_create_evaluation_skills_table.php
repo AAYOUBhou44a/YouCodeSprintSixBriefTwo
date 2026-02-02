@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('evaluations', function (Blueprint $table) {
+        Schema::create('evaluation_skills', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('brief_id')->constrained();
-            $table->foreignId('student_id')->constrained('users');
-            $table->text('comment');
+            $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('skill_id')->constrained()->onDelete('cascade');
+            $table->enum('level', ['IMITER', 'S_ADAPTER', 'TRANSPOSER']);
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('evaluations');
+        Schema::dropIfExists('evaluation_skills');
     }
 };
