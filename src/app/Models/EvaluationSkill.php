@@ -10,6 +10,9 @@ class EvaluationSkill extends Pivot
     protected $fillable = [
         'evaluation_id',
         'skill_id',
-        'level'
+        'level_id',
+        'validation'
     ];
+
+
 }

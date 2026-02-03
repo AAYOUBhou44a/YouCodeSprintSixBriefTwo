@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class brief extends Model
+class Brief extends Model
 {
     protected $fillable = [
         'title',
@@ -26,5 +26,17 @@ class brief extends Model
             'start_date' => 'datetime',
             'end_date' => 'datetime'
         ];
+    }
+
+    public function sprint(){
+        return $this->belongsTo(Sprint::class);
+    }
+
+    public function classe(){
+        return $this->belongsTo(Classe::class);
+    }
+
+    public function evaluations(){
+        return $this->hasMany(Evaluation::class);
     }
 }

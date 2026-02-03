@@ -19,4 +19,8 @@ class Sprint extends Model
             'end_date' => 'datetime'
         ];
     }
+
+    public function briefs(){
+        return $this->hasMany(Brief::class);
+    }
 }

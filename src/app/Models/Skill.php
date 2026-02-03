@@ -10,4 +10,11 @@ class Skill extends Model
         'code',
         'title'
     ];
+
+    public function evaluations(){
+        return $this->belongsToMany(Evaluation::class, 'evaluation_skills')
+        ->using(EvaluationSkill::class)
+        ->withPivot('level');
+    }
+
 }

@@ -23,7 +23,8 @@ class User extends Authenticatable
         'password',
         'role',
         'age',
-        'phone'
+        'phone',
+        'classe_id'
     ];
 
     /**
@@ -49,6 +50,14 @@ class User extends Authenticatable
         ];
     }
 
+
+    public function classe(){
+        return $this->belongsTo(Classe::class);
+    }
+
+    public function evaluations(){
+        return $this->hasMany(Evaluation::class);
+    }
 
 // /**
 //      // HELPER : Vérifier si l'utilisateur est un étudiant

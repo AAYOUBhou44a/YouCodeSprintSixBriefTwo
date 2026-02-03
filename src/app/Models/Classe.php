@@ -10,4 +10,8 @@ class Classe extends Model
         'name',
         'teacher_id'
     ];
+
+    public function students(){
+        return $this->hasMany(User::class);
+    }
 }

@@ -22,6 +22,7 @@ return new class extends Migration
             $table->enum('role', ['student', 'teacher', 'admin'])->default('student');
             $table->integer('age');
             $table->string('phone');
+            $table->foreignId('classe_id')->nullable();
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
