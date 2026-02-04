@@ -9,6 +9,10 @@ Route::get('/login', function () {
 
 Route::post('/submitLogin', [AuthController::class, 'submitLogin']);
 
+Route::get('/create-classe', function(){
+    return view('admin.create-classe');
+})->name('create-classe');
+
 Route::get('/create-user', function(){
     return view('admin.create-user');
 })->name('create-user');
