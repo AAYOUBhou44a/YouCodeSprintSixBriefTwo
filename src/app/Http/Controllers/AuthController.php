@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\LoginRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use App\Http\Requests\RegisterRequest;
 
 class AuthController extends Controller
 {
@@ -12,7 +15,7 @@ class AuthController extends Controller
         $credentials = $request->only('email', 'password'); 
         if(Auth::attempt($credentials)){
             // Auth::attempt : Vérifie l'identité et connecte.
-            // regenerate() : Sécurise la connexion en changeant l'ID de session.
+            //'re' regenerate() : Sécurise la connexion en changeant l'ID de session.
             $request->session()->regenerate();
 
             $user = Auth::user();
@@ -29,6 +32,20 @@ class AuthController extends Controller
             }
             
         }
+        return back();
+    }
+
+    public function submitUser(RegisterRequest $request){
+        $created = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => Hash::make($request->password),
+        'role' => $request->role,
+        'age' => $request->age,
+        'phone' => $request->phone,
+        'classe_id' => null
+        ]);
+
         return back();
     }
 }

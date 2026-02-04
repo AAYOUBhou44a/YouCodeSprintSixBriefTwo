@@ -11,9 +11,10 @@
     </style>
 </head>
 <body class="bg-slate-50 min-h-full font-sans antialiased text-slate-900">
-    <div class="flex min-h-screen"> @auth 
+    <div class="flex min-h-screen"> 
+        <!-- @auth 
             @include('partials.sidebar')
-        @endauth
+        @endauth -->
 
         <div class="flex-1 flex flex-col">
             
