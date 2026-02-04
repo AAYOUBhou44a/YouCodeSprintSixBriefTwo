@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Brief extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'title',
         'description',
@@ -38,5 +41,9 @@ class Brief extends Model
 
     public function evaluations(){
         return $this->hasMany(Evaluation::class);
+    }
+
+    public function skills(){
+        return $this->belongsToMany(Skill::class, 'brief_skills')->withPivot('level');
     }
 }

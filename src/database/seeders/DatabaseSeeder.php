@@ -15,6 +15,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        \App\Models\User::factory(1)->create(['id' => 101 , 'role' => 'teacher', 'classe_id' => null]);
+        $this->call([
+            ClasseSeeder::class,
+            UserSeeder::class,
+            SprintSeeder::class,
+            SkillSeeder::class,
+            BriefSeeder::class,
+            EvaluationSeeder::class
+        ]);
         // User::factory(10)->create();
 
         User::factory()->create([

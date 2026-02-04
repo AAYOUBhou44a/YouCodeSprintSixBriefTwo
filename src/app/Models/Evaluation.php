@@ -3,9 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Evaluation extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'brief_id',
         'student_id',
@@ -18,6 +21,10 @@ class Evaluation extends Model
 
     public function student(){
         return $this->belongsTo(User::class);
+    }
+
+    public function skills(){
+        return $this->belogsToMany(Skill::class, 'evaluation_skills')->withPivot('level_id', 'validation');
     }
 
     // public function skills(){
