@@ -1,122 +1,117 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Détails du Débriefing - MyBrief</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased h-screen flex flex-col overflow-hidden">
+@extends('layouts.app')
 
-    <header class="h-20 bg-white border-b border-slate-200 flex items-center justify-between px-10 shrink-0 z-20">
+@section('content')
+<div class="max-w-6xl mx-auto w-full p-6 lg:p-10">
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">
         <div class="flex items-center gap-6">
-            <a href="student-briefs.html" class="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center text-slate-500 hover:bg-indigo-600 hover:text-white transition">
+            <a href="#" class="w-12 h-12 rounded-2xl bg-white border border-slate-200 flex items-center justify-center text-slate-400 hover:bg-indigo-600 hover:text-white transition-all shadow-sm">
                 <i class="fas fa-chevron-left"></i>
             </a>
             <div>
-                <h1 class="text-sm font-black uppercase tracking-widest text-slate-400">Résultat de l'évaluation</h1>
-                <h2 class="text-xl font-black text-slate-900 tracking-tight">Système de Débriefing & Feedback</h2>
+                <h1 class="text-[10px] font-black uppercase tracking-[0.2em] text-indigo-500 mb-1">Résultat de l'évaluation</h1>
+                <h2 class="text-3xl font-black text-slate-900 tracking-tight">Système de Débriefing & Feedback</h2>
             </div>
         </div>
-        <div class="flex items-center gap-3">
-            <span class="px-4 py-2 bg-green-50 text-green-600 rounded-xl text-[10px] font-black uppercase border border-green-100 italic">Brief Validé</span>
+        <div class="flex items-center">
+            <span class="px-6 py-2.5 bg-emerald-50 text-emerald-600 rounded-2xl text-[10px] font-black uppercase border border-emerald-100 shadow-sm italic tracking-widest">
+                <i class="fas fa-check-circle mr-2"></i> Brief Validé
+            </span>
         </div>
-    </header>
+    </div>
 
-    <main class="flex-1 overflow-y-auto p-10">
-        <div class="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+        
+        <div class="lg:col-span-2 space-y-10">
             
-            <div class="lg:col-span-2 space-y-8">
+            <div class="bg-white rounded-[3rem] border border-slate-200 p-10 shadow-xl shadow-slate-200/50 relative overflow-hidden">
+                <div class="flex items-center gap-4 mb-8">
+                    <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=4f46e5&color=fff" class="w-14 h-14 rounded-2xl shadow-lg shadow-indigo-100">
+                    <div>
+                        <p class="text-sm font-black text-slate-900">Jean Dupont</p>
+                        <p class="text-[10px] text-slate-400 uppercase font-black tracking-widest">Formateur Référent</p>
+                    </div>
+                </div>
+                <div class="relative">
+                    <i class="fas fa-quote-left text-5xl text-indigo-50 absolute -top-4 -left-2"></i>
+                    <p class="relative z-10 text-slate-600 leading-relaxed italic text-xl pl-8">
+                        "Sophie, ton travail sur la couche service est exemplaire. L'organisation du code est modulaire et facile à lire. Pour le prochain projet, essaie d'approfondir la partie tests unitaires (PHPUnit) pour sécuriser davantage tes routes."
+                    </p>
+                </div>
+            </div>
+
+            <div class="space-y-4">
+                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] ml-6">Analyse détaillée des acquis</h3>
                 
-                <div class="bg-white rounded-[2.5rem] border border-slate-200 p-8 shadow-sm relative overflow-hidden">
-                    <div class="flex items-center gap-4 mb-6">
-                        <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=4f46e5&color=fff" class="w-12 h-12 rounded-2xl shadow-lg shadow-indigo-100">
+                <div class="bg-white rounded-[2rem] border border-slate-100 p-8 flex flex-col md:flex-row items-center justify-between group hover:border-indigo-300 transition-all shadow-sm gap-6">
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-sm shadow-lg">C1</div>
                         <div>
-                            <p class="text-xs font-black text-slate-900">Jean Dupont</p>
-                            <p class="text-[10px] text-slate-400 uppercase font-bold">Formateur Référent</p>
+                            <h4 class="font-black text-slate-900 text-lg">Maquettage UX/UI</h4>
+                            <p class="text-[10px] text-indigo-500 font-black uppercase tracking-widest mt-1">Palier atteint : ADAPTER</p>
                         </div>
                     </div>
-                    <div class="relative">
-                        <i class="fas fa-quote-left text-4xl text-indigo-50 absolute -top-2 -left-2"></i>
-                        <p class="relative z-10 text-slate-600 leading-relaxed italic text-lg pl-6">
-                            "Sophie, ton travail sur la couche service est exemplaire. L'organisation du code est modulaire et facile à lire. Pour le prochain projet, essaie d'approfondir la partie tests unitaires (PHPUnit) pour sécuriser davantage tes routes."
-                        </p>
+                    <div class="flex gap-2 bg-slate-50 p-2 rounded-2xl">
+                        <div class="w-10 h-3 bg-rose-400 rounded-full shadow-sm"></div>
+                        <div class="w-10 h-3 bg-amber-400 rounded-full shadow-md shadow-amber-200 border-2 border-white"></div>
+                        <div class="w-10 h-3 bg-slate-200 rounded-full"></div>
                     </div>
                 </div>
 
-                <div class="space-y-4">
-                    <h3 class="text-xs font-black text-slate-400 uppercase tracking-widest ml-2">Analyse par compétence</h3>
-                    
-                    <div class="bg-white rounded-3xl border border-slate-200 p-6 flex items-center justify-between group hover:border-indigo-300 transition">
-                        <div class="flex items-center gap-5">
-                            <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xs uppercase">C1</div>
-                            <div>
-                                <h4 class="font-black text-slate-900">Maquettage UX/UI</h4>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Palier atteint : ADAPTER</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-1">
-                            <div class="w-8 h-2 bg-red-400 rounded-full"></div>
-                            <div class="w-8 h-2 bg-amber-400 rounded-full shadow-md shadow-amber-100"></div>
-                            <div class="w-8 h-2 bg-slate-100 rounded-full"></div>
+                <div class="bg-white rounded-[2rem] border border-slate-100 p-8 flex flex-col md:flex-row items-center justify-between group hover:border-indigo-300 transition-all shadow-sm gap-6">
+                    <div class="flex items-center gap-6">
+                        <div class="w-14 h-14 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-sm shadow-lg">C4</div>
+                        <div>
+                            <h4 class="font-black text-slate-900 text-lg">Base de données SQL</h4>
+                            <p class="text-[10px] text-emerald-500 font-black uppercase tracking-widest mt-1">Palier atteint : TRANSPOSER</p>
                         </div>
                     </div>
-
-                    <div class="bg-white rounded-3xl border border-slate-200 p-6 flex items-center justify-between group hover:border-indigo-300 transition">
-                        <div class="flex items-center gap-5">
-                            <div class="w-12 h-12 bg-slate-900 text-white rounded-2xl flex items-center justify-center font-black text-xs uppercase">C4</div>
-                            <div>
-                                <h4 class="font-black text-slate-900">Base de données SQL</h4>
-                                <p class="text-[10px] text-slate-400 font-bold uppercase tracking-tighter">Palier atteint : TRANSPOSER</p>
-                            </div>
-                        </div>
-                        <div class="flex gap-1">
-                            <div class="w-8 h-2 bg-red-400 rounded-full"></div>
-                            <div class="w-8 h-2 bg-amber-400 rounded-full"></div>
-                            <div class="w-8 h-2 bg-green-500 rounded-full shadow-md shadow-green-100"></div>
-                        </div>
+                    <div class="flex gap-2 bg-slate-50 p-2 rounded-2xl">
+                        <div class="w-10 h-3 bg-rose-400 rounded-full"></div>
+                        <div class="w-10 h-3 bg-amber-400 rounded-full"></div>
+                        <div class="w-10 h-3 bg-emerald-500 rounded-full shadow-md shadow-emerald-200 border-2 border-white"></div>
                     </div>
                 </div>
             </div>
-
-            <div class="space-y-8">
-                
-                <div class="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-xl shadow-slate-200">
-                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Tes livrables</h3>
-                    <div class="space-y-3">
-                        <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition border border-white/10">
-                            <span class="text-xs font-bold truncate mr-4 italic">github.com/sophie/brief-02</span>
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-white/10 transition border border-white/10">
-                            <span class="text-xs font-bold italic">Version live</span>
-                            <i class="fas fa-external-link-alt text-[10px]"></i>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-[2.5rem] border border-slate-200 p-8 shadow-sm">
-                    <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Timing</h3>
-                    <div class="flex items-center justify-between mb-2">
-                        <span class="text-xs font-bold text-slate-500">Soumission</span>
-                        <span class="text-xs font-black uppercase text-slate-900">À l'heure</span>
-                    </div>
-                    <div class="w-full h-1.5 bg-green-500 rounded-full mb-6"></div>
-                    
-                    <div class="p-4 bg-slate-50 rounded-2xl text-center">
-                        <p class="text-[9px] font-black text-slate-400 uppercase mb-1">Date d'évaluation</p>
-                        <p class="text-sm font-black text-slate-900">23 Janvier 2026</p>
-                    </div>
-                </div>
-
-                <button class="w-full py-4 bg-indigo-600 text-white rounded-2xl font-black text-xs uppercase tracking-widest shadow-lg shadow-indigo-100 hover:bg-indigo-700 transition">
-                    Télécharger le compte-rendu (PDF)
-                </button>
-            </div>
-
         </div>
-    </main>
 
-</body>
-</html>
+        <div class="space-y-8">
+            
+            <div class="bg-slate-900 rounded-[2.5rem] p-8 text-white shadow-2xl shadow-slate-300">
+                <h3 class="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-6">Sources du projet</h3>
+                <div class="space-y-4">
+                    <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-indigo-600 transition-all border border-white/10 group">
+                        <span class="text-xs font-bold italic opacity-80 group-hover:opacity-100">github.com/sophie/brief-02</span>
+                        <i class="fab fa-github text-xl"></i>
+                    </a>
+                    <a href="#" class="flex items-center justify-between p-4 bg-white/5 rounded-2xl hover:bg-emerald-600 transition-all border border-white/10 group">
+                        <span class="text-xs font-bold italic opacity-80 group-hover:opacity-100">Consulter la démo live</span>
+                        <i class="fas fa-external-link-alt text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-[2.5rem] border border-slate-200 p-8 shadow-sm">
+                <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-6">Informations de dépôt</h3>
+                <div class="flex items-center justify-between mb-3">
+                    <span class="text-xs font-bold text-slate-500">Statut de livraison</span>
+                    <span class="text-[10px] font-black uppercase text-emerald-600 bg-emerald-50 px-2 py-1 rounded-lg">À l'heure</span>
+                </div>
+                <div class="w-full h-2 bg-slate-100 rounded-full mb-8 overflow-hidden">
+                    <div class="h-full bg-emerald-500 w-full shadow-[0_0_10px_rgba(16,185,129,0.5)]"></div>
+                </div>
+                
+                <div class="p-5 bg-slate-50 rounded-[1.5rem] text-center">
+                    <p class="text-[9px] font-black text-slate-400 uppercase mb-1">Évalué par le système le</p>
+                    <p class="text-base font-black text-slate-900 tracking-tight">23 Janvier 2026</p>
+                </div>
+            </div>
+
+            <button class="w-full py-5 bg-indigo-600 text-white rounded-[2rem] font-black text-[10px] uppercase tracking-[0.2em] shadow-xl shadow-indigo-100 hover:bg-slate-900 transition-all hover:-translate-y-1">
+                <i class="fas fa-file-pdf mr-2"></i> Exporter le Feedback
+            </button>
+        </div>
+
+    </div>
+</div>
+@endsection

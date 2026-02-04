@@ -1,162 +1,119 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tableau de Bord - Formateur</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; }
-    </style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased">
+@extends('layouts.app')
 
-    <div class="flex h-screen overflow-hidden">
-        
-        <aside class="w-64 bg-slate-900 text-white flex flex-col fixed h-full z-30 transition-all duration-300" id="sidebar">
-            <div class="h-16 flex items-center justify-center border-b border-slate-800 px-6">
-                <div class="font-bold text-xl tracking-wider text-white">
-                    <span class="text-indigo-500">MY</span>BRIEF
-                </div>
-            </div>
-
-            <nav class="flex-1 overflow-y-auto py-6 px-3 space-y-1">
-                
-                <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-2">Principal</p>
-                
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-indigo-600 text-white rounded-lg transition-colors shadow-lg shadow-indigo-900/20">
-                    <i class="fas fa-chart-pie w-5 text-center"></i>
-                    <span class="font-medium text-sm">Vue d'ensemble</span>
-                </a>
-
-                <p class="px-3 text-xs font-semibold text-slate-500 uppercase tracking-wider mb-2 mt-6">Pédagogie</p>
-
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors group">
-                    <i class="fas fa-layer-group w-5 text-center group-hover:text-indigo-400 transition"></i>
-                    <span class="font-medium text-sm">Briefs & Sprints</span>
-                </a>
-                
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors group">
-                    <i class="fas fa-users w-5 text-center group-hover:text-indigo-400 transition"></i>
-                    <span class="font-medium text-sm">Mes Apprenants</span>
-                </a>
-                
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:text-white hover:bg-slate-800 rounded-lg transition-colors group">
-                    <i class="fas fa-clipboard-check w-5 text-center group-hover:text-indigo-400 transition"></i>
-                    <span class="font-medium text-sm">Débriefings</span>
-                    <span class="ml-auto bg-indigo-500 text-white py-0.5 px-2 rounded-full text-xs font-bold">3</span>
-                </a>
-
-            </nav>
-
-            <div class="p-4 border-t border-slate-800">
-                <button class="flex items-center gap-3 w-full p-2 rounded-lg hover:bg-slate-800 transition">
-                    <img src="https://ui-avatars.com/api/?name=Jean+Dupont&background=6366f1&color=fff" class="w-8 h-8 rounded-full">
-                    <div class="text-left hidden md:block">
-                        <p class="text-xs font-medium text-white">Jean Dupont</p>
-                        <p class="text-[10px] text-slate-400">Formateur Lead</p>
-                    </div>
-                </button>
-            </div>
-        </aside>
-
-        <div class="flex-1 flex flex-col ml-64 overflow-hidden">
-            
-            <header class="h-16 bg-white border-b border-slate-200 flex justify-between items-center px-8 z-20">
-                <h2 class="text-lg font-semibold text-slate-800">Tableau de bord</h2>
-                
-                <div class="flex items-center gap-4">
-                    <button class="text-slate-500 hover:text-slate-700 relative">
-                        <i class="fas fa-bell text-lg"></i>
-                        <span class="absolute -top-1 -right-1 h-2 w-2 bg-red-500 rounded-full"></span>
-                    </button>
-                    <div class="h-8 w-px bg-slate-200 mx-2"></div>
-                    <a href="#" class="text-sm font-medium text-slate-600 hover:text-indigo-600">Déconnexion</a>
-                </div>
-            </header>
-
-            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-slate-50 p-8">
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-slate-500">Sprint Actuel</p>
-                            <h3 class="text-2xl font-bold text-slate-800 mt-1">Sprint 2</h3>
-                            <p class="text-xs text-green-600 font-medium mt-1"><i class="fas fa-arrow-up"></i> J-4 avant fin</p>
-                        </div>
-                        <div class="p-3 bg-indigo-50 rounded-full text-indigo-600">
-                            <i class="fas fa-rocket text-xl"></i>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-slate-500">Briefs à corriger</p>
-                            <h3 class="text-2xl font-bold text-slate-800 mt-1">12</h3>
-                            <p class="text-xs text-orange-500 font-medium mt-1">Urgents</p>
-                        </div>
-                        <div class="p-3 bg-orange-50 rounded-full text-orange-600">
-                            <i class="fas fa-pen-nib text-xl"></i>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100 flex items-center justify-between">
-                        <div>
-                            <p class="text-sm font-medium text-slate-500">Moyenne Classe</p>
-                            <h3 class="text-2xl font-bold text-slate-800 mt-1">78%</h3>
-                            <p class="text-xs text-slate-400 mt-1">Sur les compétences C1-C4</p>
-                        </div>
-                        <div class="p-3 bg-green-50 rounded-full text-green-600">
-                            <i class="fas fa-chart-line text-xl"></i>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white rounded-xl shadow-sm border border-slate-100 overflow-hidden">
-                    <div class="px-6 py-4 border-b border-slate-100 flex justify-between items-center">
-                        <h3 class="font-bold text-slate-800">Activité Récente</h3>
-                        <button class="text-indigo-600 text-sm font-medium hover:underline">Voir tout</button>
-                    </div>
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-sm text-left text-slate-600">
-                            <thead class="text-xs text-slate-500 uppercase bg-slate-50">
-                                <tr>
-                                    <th class="px-6 py-3">Brief</th>
-                                    <th class="px-6 py-3">État</th>
-                                    <th class="px-6 py-3">Compétences</th>
-                                    <th class="px-6 py-3 text-right">Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="bg-white border-b hover:bg-slate-50 transition">
-                                    <td class="px-6 py-4 font-medium text-slate-900">
-                                        Système de Débriefing
-                                        <div class="text-xs text-slate-400 font-normal">Sprint 2 • PHP/MVC</div>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span class="bg-blue-100 text-blue-800 text-xs font-semibold px-2.5 py-0.5 rounded-full">En cours</span>
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex gap-1">
-                                            <span class="bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-xs">C1</span>
-                                            <span class="bg-slate-100 border border-slate-200 px-2 py-0.5 rounded text-xs">C4</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-right">
-                                        <a href="#" class="text-indigo-600 hover:text-indigo-900 font-medium">Gérer</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-            </main>
+@section('content')
+<div class="max-w-7xl mx-auto w-full p-6 lg:p-10 space-y-10">
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Tableau de bord</h1>
+            <p class="text-slate-500 font-medium">Content de vous revoir, <span class="text-indigo-600">Jean</span>. Voici l'état de vos classes.</p>
+        </div>
+        <div class="flex items-center gap-3">
+            <span class="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 rounded-2xl text-xs font-bold text-slate-600 shadow-sm">
+                <span class="h-2 w-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                Session Active : DWWM 2026
+            </span>
         </div>
     </div>
 
-</body>
-</html>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 flex items-center justify-between group hover:border-indigo-300 transition-all cursor-default">
+            <div>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Sprint Actuel</p>
+                <h3 class="text-3xl font-black text-slate-900">Sprint 02</h3>
+                <div class="mt-4 flex items-center gap-2 text-emerald-600 font-black text-[10px] bg-emerald-50 px-3 py-1.5 rounded-xl w-fit">
+                    <i class="fas fa-hourglass-half"></i> J-4 AVANT FIN
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-[1.5rem] flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-inner">
+                <i class="fas fa-rocket"></i>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 flex items-center justify-between group hover:border-orange-300 transition-all cursor-default">
+            <div>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Briefs à corriger</p>
+                <h3 class="text-3xl font-black text-slate-900">12 copies</h3>
+                <div class="mt-4 flex items-center gap-2 text-orange-600 font-black text-[10px] bg-orange-50 px-3 py-1.5 rounded-xl w-fit">
+                    <i class="fas fa-exclamation-circle"></i> ACTION REQUISE
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-orange-50 text-orange-600 rounded-[1.5rem] flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-inner">
+                <i class="fas fa-pen-fancy"></i>
+            </div>
+        </div>
+
+        <div class="bg-white p-8 rounded-[2.5rem] shadow-xl shadow-slate-200/40 border border-slate-100 flex items-center justify-between group hover:border-emerald-300 transition-all cursor-default">
+            <div>
+                <p class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Moyenne Promotion</p>
+                <h3 class="text-3xl font-black text-slate-900">78.5 %</h3>
+                <div class="mt-4 flex items-center gap-2 text-slate-400 font-black text-[10px] bg-slate-50 px-3 py-1.5 rounded-xl w-fit">
+                    <i class="fas fa-chart-line"></i> STABLE
+                </div>
+            </div>
+            <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-[1.5rem] flex items-center justify-center text-3xl group-hover:rotate-12 transition-transform shadow-inner">
+                <i class="fas fa-graduation-cap"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="bg-white rounded-[3rem] shadow-2xl shadow-slate-200/60 border border-slate-100 overflow-hidden">
+        <div class="p-8 border-b border-slate-50 flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-50/30">
+            <div>
+                <h3 class="text-xl font-black text-slate-900 tracking-tight italic">Briefs en cours d'acquisition</h3>
+                <p class="text-xs text-slate-400 font-bold uppercase mt-1 tracking-tighter">Suivi détaillé des compétences par projet</p>
+            </div>
+            <button class="px-6 py-3 bg-white border-2 border-slate-100 text-indigo-600 rounded-2xl text-[10px] font-black hover:border-indigo-600 transition-all shadow-sm uppercase tracking-widest">
+                Voir tous les briefs
+            </button>
+        </div>
+
+        <div class="overflow-x-auto">
+            <table class="w-full text-left">
+                <thead>
+                    <tr class="bg-white">
+                        <th class="px-10 py-5 text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Brief / Module</th>
+                        <th class="px-10 py-5 text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Progression Classe</th>
+                        <th class="px-10 py-5 text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Compétences cibles</th>
+                        <th class="px-10 py-5 text-right text-[10px] font-black text-slate-300 uppercase tracking-[0.2em]">Actions</th>
+                    </tr>
+                </thead>
+                <tbody class="divide-y divide-slate-50">
+                    <tr class="group hover:bg-indigo-50/20 transition-all cursor-pointer">
+                        <td class="px-10 py-8">
+                            <div class="flex items-center gap-5">
+                                <div class="w-12 h-12 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-black shadow-lg shadow-indigo-200">
+                                    DB
+                                </div>
+                                <div>
+                                    <p class="font-black text-slate-800 text-base">Système de Débriefing</p>
+                                    <p class="text-[10px] text-indigo-500 font-black uppercase mt-0.5">Sprint 02 • Architecture MVC</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td class="px-10 py-8">
+                            <div class="flex items-center gap-4">
+                                <div class="flex-1 h-3 bg-slate-100 rounded-full overflow-hidden max-w-[140px] border border-slate-200/50">
+                                    <div class="h-full bg-indigo-500 rounded-full w-[65%] shadow-[0_0_12px_rgba(99,102,241,0.4)]"></div>
+                                </div>
+                                <span class="text-xs font-black text-slate-700">65%</span>
+                            </div>
+                        </td>
+                        <td class="px-10 py-8">
+                            <div class="flex gap-2">
+                                <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-600 text-[10px] font-black rounded-xl shadow-sm">C1</span>
+                                <span class="px-3 py-1.5 bg-white border border-slate-200 text-slate-600 text-[10px] font-black rounded-xl shadow-sm">C4</span>
+                            </div>
+                        </td>
+                        <td class="px-10 py-8 text-right">
+                            <button class="bg-slate-900 text-white px-6 py-3 rounded-2xl text-[10px] font-black hover:bg-indigo-600 transition-all hover:-translate-y-1 shadow-xl shadow-slate-200 hover:shadow-indigo-100">
+                                PILOTER LE PROJET
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@endsection

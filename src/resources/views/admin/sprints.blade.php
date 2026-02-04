@@ -1,134 +1,102 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administration Sprints - MyBrief</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased overflow-hidden">
+@extends('layouts.app')
 
-    <div class="flex h-screen">
-        
-        <aside class="w-64 bg-slate-900 text-white flex flex-col shrink-0">
-            <div class="h-16 flex items-center justify-center border-b border-slate-800 font-bold text-xl">
-                <span class="text-indigo-500">MY</span>BRIEF <span class="ml-2 text-[10px] bg-red-500 px-1 rounded">ADMIN</span>
+@section('content')
+<div class="max-w-5xl mx-auto w-full p-6 lg:p-10">
+    
+    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
+        <div>
+            <h1 class="text-3xl font-black text-slate-900 tracking-tight">Configuration Sprints</h1>
+            <p class="text-slate-500 font-medium mt-1">Définissez la structure chronologique de la formation.</p>
+        </div>
+        <button onclick="document.getElementById('modal-sprint').classList.remove('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl text-xs font-black shadow-xl shadow-indigo-100 transition-all hover:-translate-y-1 flex items-center gap-2 uppercase tracking-widest">
+            <i class="fas fa-plus text-base"></i> Nouveau Sprint
+        </button>
+    </div>
+
+    <div class="bg-white p-4 rounded-[2rem] border border-slate-200 shadow-sm mb-8 flex items-center justify-between px-8">
+        <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Promotion cible</label>
+        <select class="bg-slate-50 border-none text-sm font-bold text-slate-700 rounded-xl px-4 py-2 focus:ring-2 focus:ring-indigo-500 outline-none cursor-pointer">
+            <option>DWWM 2026</option>
+            <option>CDA 2025</option>
+        </select>
+    </div>
+
+    <div class="space-y-4 relative">
+        <div class="absolute left-10 top-0 bottom-0 w-0.5 bg-slate-100 -z-10"></div>
+
+        <div class="bg-white border border-slate-200 rounded-[2rem] p-6 flex items-center justify-between group hover:border-indigo-200 transition-all shadow-sm ml-4">
+            <div class="flex items-center gap-6">
+                <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center font-black text-xl border-4 border-white shadow-sm">
+                    01
+                </div>
+                <div>
+                    <h4 class="font-black text-slate-800 text-lg tracking-tight">Intégration & Maquettage</h4>
+                    <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
+                        <i class="fas fa-calendar-alt mr-1"></i> 4 Semaines • Terminé
+                    </p>
+                </div>
             </div>
-            <nav class="flex-1 py-6 px-3 space-y-1">
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:bg-slate-800 rounded-lg transition">
-                    <i class="fas fa-th-large w-5"></i> <span class="text-sm">Dashboard</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:bg-slate-800 rounded-lg transition">
-                    <i class="fas fa-school w-5"></i> <span class="text-sm">Classes</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 bg-indigo-600 text-white rounded-lg shadow-lg">
-                    <i class="fas fa-redo w-5"></i> <span class="text-sm font-bold">Configuration Sprints</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-300 hover:bg-slate-800 rounded-lg transition">
-                    <i class="fas fa-award w-5"></i> <span class="text-sm">Compétences</span>
-                </a>
-            </nav>
-        </aside>
-
-        <div class="flex-1 flex flex-col">
-            
-            <header class="h-16 bg-white border-b border-slate-200 flex justify-between items-center px-8">
-                <h2 class="text-lg font-bold">Structure des Sprints</h2>
-                <button onclick="toggleModal('modal-sprint')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-lg text-sm font-bold shadow-md transition">
-                    <i class="fas fa-plus mr-2"></i>Nouveau Sprint
+            <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
+                    <i class="fas fa-edit"></i>
                 </button>
-            </header>
-
-            <main class="p-8 overflow-y-auto">
-                <div class="max-w-4xl mx-auto">
-                    
-                    <div class="mb-6 flex justify-between items-center">
-                        <label class="text-sm font-bold text-slate-500 uppercase tracking-widest">Sprints - Classe DWWM 2026</label>
-                        <select class="bg-white border border-slate-300 rounded-md text-sm px-3 py-1">
-                            <option>Filtrer par Classe...</option>
-                            <option selected>DWWM 2026</option>
-                            <option>CDA 2025</option>
-                        </select>
-                    </div>
-
-                    <div class="space-y-4">
-                        <div class="bg-white border border-slate-200 rounded-xl p-6 flex items-center justify-between group hover:border-indigo-300 transition shadow-sm">
-                            <div class="flex items-center gap-6">
-                                <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-lg flex items-center justify-center font-bold text-xl">1</div>
-                                <div>
-                                    <h4 class="font-bold text-slate-800 text-lg tracking-tight">Sprint 01 : Intégration & Maquettage</h4>
-                                    <p class="text-sm text-slate-500">Durée : 4 semaines | Ordre : 1</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition">
-                                <button class="p-2 text-slate-400 hover:text-indigo-600 hover:bg-indigo-50 rounded"><i class="fas fa-edit"></i></button>
-                                <button class="p-2 text-slate-400 hover:text-red-600 hover:bg-red-50 rounded"><i class="fas fa-trash"></i></button>
-                            </div>
-                        </div>
-
-                        <div class="bg-white border-2 border-indigo-500 rounded-xl p-6 flex items-center justify-between shadow-md">
-                            <div class="flex items-center gap-6">
-                                <div class="w-12 h-12 bg-indigo-600 text-white rounded-lg flex items-center justify-center font-bold text-xl">2</div>
-                                <div>
-                                    <div class="flex items-center gap-2">
-                                        <h4 class="font-bold text-slate-800 text-lg tracking-tight">Sprint 02 : Backend & MVC</h4>
-                                        <span class="px-2 py-0.5 bg-green-100 text-green-700 text-[10px] font-bold rounded uppercase">Actif</span>
-                                    </div>
-                                    <p class="text-sm text-slate-500">Durée : 3 semaines | Ordre : 2</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-2">
-                                <button class="p-2 text-indigo-600 hover:bg-indigo-50 rounded"><i class="fas fa-edit"></i></button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </div>
-    </div>
-
-    <div id="modal-sprint" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="bg-white rounded-2xl shadow-2xl w-full max-w-md overflow-hidden">
-            <div class="p-6 border-b border-slate-100 flex justify-between items-center">
-                <h3 class="text-xl font-bold text-slate-800">Nouveau Sprint</h3>
-                <button onclick="toggleModal('modal-sprint')" class="text-slate-400 hover:text-slate-600"><i class="fas fa-times"></i></button>
+                <button class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                    <i class="fas fa-trash"></i>
+                </button>
             </div>
-            <form class="p-6 space-y-4">
-                <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Nom du Sprint</label>
-                    <input type="text" placeholder="ex: Fondamentaux JavaScript" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
-                </div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Durée (en semaines)</label>
-                        <input type="number" value="2" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-slate-700 mb-1">Ordre Chronologique</label>
-                        <input type="number" value="3" class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
-                    </div>
+        </div>
+
+        <div class="bg-white border-2 border-indigo-500 rounded-[2rem] p-6 flex items-center justify-between shadow-xl shadow-indigo-100 ml-4 relative">
+            <div class="absolute -left-[1.35rem] top-1/2 -translate-y-1/2 w-4 h-4 bg-indigo-500 rounded-full border-4 border-white"></div>
+            <div class="flex items-center gap-6">
+                <div class="w-14 h-14 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">
+                    02
                 </div>
                 <div>
-                    <label class="block text-sm font-bold text-slate-700 mb-1">Assigner à la classe</label>
-                    <select class="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none transition">
-                        <option>DWWM 2026</option>
-                        <option>CDA 2025</option>
-                    </select>
+                    <div class="flex items-center gap-3">
+                        <h4 class="font-black text-slate-800 text-lg tracking-tight">Backend & Architecture MVC</h4>
+                        <span class="px-3 py-1 bg-emerald-500 text-white text-[9px] font-black rounded-full uppercase tracking-widest animate-pulse">En cours</span>
+                    </div>
+                    <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mt-1">
+                        <i class="fas fa-clock mr-1"></i> 3 Semaines • Débuté le 20 Janv.
+                    </p>
                 </div>
-                <div class="pt-4 flex gap-3">
-                    <button type="button" onclick="toggleModal('modal-sprint')" class="flex-1 px-4 py-2 border border-slate-200 text-slate-600 rounded-lg hover:bg-slate-50 transition font-medium">Annuler</button>
-                    <button type="submit" class="flex-1 px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 transition font-bold shadow-lg shadow-indigo-200">Créer le Sprint</button>
-                </div>
-            </form>
+            </div>
+            <button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all">
+                <i class="fas fa-cog"></i>
+            </button>
         </div>
     </div>
+</div>
 
-    <script>
-        function toggleModal(id) {
-            const modal = document.getElementById(id);
-            modal.classList.toggle('hidden');
-        }
-    </script>
-</body>
-</html>
+<div id="modal-sprint" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+    <div class="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md overflow-hidden transform transition-all border border-white/20">
+        <div class="p-8 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+            <h3 class="text-xl font-black text-slate-900 uppercase tracking-tighter">Nouveau Sprint</h3>
+            <button onclick="document.getElementById('modal-sprint').classList.add('hidden')" class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-200 transition-colors text-slate-400">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <form class="p-8 space-y-6">
+            <div>
+                <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Titre du module</label>
+                <input type="text" placeholder="ex: API Rest & Sécurité" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-700 transition-all">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Durée (sem)</label>
+                    <input type="number" value="2" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-700 text-center">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Position</label>
+                    <input type="number" value="3" class="w-full px-5 py-4 bg-slate-50 border-none rounded-2xl focus:ring-2 focus:ring-indigo-500 outline-none font-bold text-slate-700 text-center">
+                </div>
+            </div>
+            <div class="pt-4 flex gap-4">
+                <button type="button" onclick="document.getElementById('modal-sprint').classList.add('hidden')" class="flex-1 px-4 py-4 border-2 border-slate-100 text-slate-400 rounded-2xl hover:bg-slate-50 transition font-black text-[10px] uppercase tracking-widest">Annuler</button>
+                <button type="submit" class="flex-1 px-4 py-4 bg-slate-900 text-white rounded-2xl hover:bg-indigo-600 transition font-black text-[10px] uppercase tracking-widest shadow-xl shadow-slate-200">Créer le Sprint</button>
+            </div>
+        </form>
+    </div>
+</div>
+@endsection
