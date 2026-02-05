@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <form action="#" method="POST" class="p-8 space-y-8">
+        <form action="/submitSprint" method="POST" class="p-8 space-y-8">
             @csrf
             
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -28,20 +28,20 @@
                         <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
                             <i class="fa-solid fa-flag-checkered"></i>
                         </span>
-                        <input type="text" placeholder="ex: Sprint 03 - Approfondissement Frameworks" required 
-                               class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition font-bold text-slate-700">
+                        <input type="text" placeholder="ex: Sprint 03 - Approfondissement Frameworks" required name="name"
+                            class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition font-bold text-slate-700">
                     </div>
                 </div>
 
-                <div>
+                <!-- <div>
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Classe concernée</label>
                     <select class="w-full px-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition font-semibold text-slate-600 appearance-none cursor-pointer">
                         <option>DWWM 2026</option>
                         <option>CDA 2025</option>
                     </select>
-                </div>
+                </div> -->
 
-                <div>
+                <!-- <div>
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Ordre dans le cursus</label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 pl-4 flex items-center text-slate-400">
@@ -50,7 +50,7 @@
                         <input type="number" value="3" 
                                class="w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition font-bold text-slate-700">
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <div class="bg-indigo-50/50 p-6 rounded-2xl border border-indigo-100">
@@ -60,20 +60,20 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                         <label class="block text-[9px] font-bold text-indigo-400 uppercase mb-1 ml-1">Date de début</label>
-                        <input type="date" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-600 transition">
+                        <input type="date" name="start_date" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-600 transition">
                     </div>
                     <div>
                         <label class="block text-[9px] font-bold text-indigo-400 uppercase mb-1 ml-1">Date de fin prévue</label>
-                        <input type="date" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-600 transition">
+                        <input type="date" name="end_date" class="w-full px-4 py-3 bg-white border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500 font-medium text-slate-600 transition">
                     </div>
                 </div>
             </div>
 
-            <div>
+            <!-- <div>
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Objectifs du Sprint (Description)</label>
-                <textarea rows="4" placeholder="Quels sont les grands thèmes abordés durant ces semaines ?" 
+                <textarea rows="4" name="description" placeholder="Quels sont les grands thèmes abordés durant ces semaines ?" 
                           class="w-full px-5 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-2 focus:ring-indigo-500 focus:bg-white outline-none transition text-sm text-slate-600 leading-relaxed"></textarea>
-            </div>
+            </div> -->
 
             <div class="pt-6 flex items-center justify-end gap-6 border-t border-slate-50">
                 <button type="button" class="text-sm font-bold text-slate-400 hover:text-red-500 transition">Annuler</button>

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->dateTime('start_date');
             $table->dateTime('end_date');
+            // $table->text('description');
         });
     }
 
