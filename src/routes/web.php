@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SkillController;
 use App\Http\Controllers\SprintController;
 
 Route::get('/login', function () {
@@ -27,6 +28,11 @@ Route::get('/create-sprint', function(){
 
 Route::post('/submitSprint', [SprintController::class, 'submitSprint']);
 
+Route::get('/create-skill', function(){
+    return view('admin.create-skill');
+})->name('create-skill');
+
+Route::post('/submitSkill', [SkillController::class, 'submitSkill']);
 
 Route::get('/create-brief', function(){
     return view('teacher.create-brief');
