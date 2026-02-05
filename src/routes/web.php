@@ -2,42 +2,58 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\SkillController;
+use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\SprintController;
+
+// Mettre une fonction de vue (return view(...)) dans le web.php est toléré uniquement 
+// pour des pages extrêmement simples qui n'ont aucune donnée
 
 Route::get('/login', function () {
     return view('auth.login');
-});
+})->name('login');
 
-Route::post('/submitLogin', [AuthController::class, 'submitLogin']);
+// on a les memes liens mais les méthodes sont défférents 
+Route::post('/login', [AuthController::class, 'submitLogin']);
+
+// __ ESPACE ADMIN __ 
 
 
-Route::get('/create-classe', function(){
-    return view('admin.create-classe');
-})->name('create-classe');
+// __ CLASSES __ 
+Route::get('/classes/create', [ClasseController::class, 'create'])->name('admin.classes.create');
 
-Route::get('/create-user', function(){
-    return view('admin.create-user');
-})->name('create-user');
+Route::post('/classes', [ClasseController::class, 'store']);
 
-Route::post('/submit-user', [AuthController::class, 'submitUser']);
 
-Route::get('/create-sprint', function(){
-    return view('admin.create-sprint');
-})->name('create-sprint');
+// __ USERS __
+Route::get('/users/create', function(){
+    return view('admin.users.create');
+})->name('admin.users.create');
 
-Route::post('/submitSprint', [SprintController::class, 'submitSprint']);
+Route::post('/users', [AuthController::class, 'store']);
 
-Route::get('/create-skill', function(){
-    return view('admin.create-skill');
-})->name('create-skill');
+// __ SPRINTS __ 
+Route::get('/sprints/create', function(){
+    return view('admin.sprints.create');
+})->name('admin.sprints.create');
 
-Route::post('/submitSkill', [SkillController::class, 'submitSkill']);
+Route::post('/sprints', [SprintController::class, 'store']);
 
-Route::get('/create-brief', function(){
-    return view('teacher.create-brief');
-})->name('create-brief');
+Route::get('/skills/create', function(){
+    return view('admin.skills.create');
+})->name('admin.skills.create');
 
+Route::post('/skills', [SkillController::class, 'store']);
+
+
+// __ ESPACE TEACHER __ 
+Route::get('/briefs/create', function(){
+    return view('teacher.briefs.create');
+})->name('teacher.briefs.create');
+
+
+// __ ESPACE STUDENT __ 
 Route::get('/briefs', function(){
-    return view('student.briefs');
-})->name('student-briefs');
+    return view('student.briefs.index');
+})->name('student.briefs.index');

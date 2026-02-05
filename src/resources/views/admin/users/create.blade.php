@@ -19,9 +19,20 @@
             <div class="absolute top-0 right-0 -mt-8 -mr-8 w-48 h-48 bg-white/10 rounded-full blur-3xl"></div>
         </div>
 
-        <form action="/submit-user" method="POST" class="p-8 md:p-12 space-y-10">
+        <!-- @if ($errors->any())
+            <div class="mb-8 p-5 bg-rose-50 border-l-8 border-rose-500 rounded-2xl shadow-sm">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 bg-rose-500 rounded-full flex items-center justify-center shrink-0 shadow-lg shadow-rose-200">
+                        <i class="fas fa-exclamation text-white text-xs"></i>
+                    </div>
+                    <p class="text-rose-600 text-sm font-bold tracking-tight">
+                        {{ $errors->first() }}
+                    </p>
+                </div>
+            </div>
+        @endif -->
+        <form action="/users" method="POST" class="p-8 md:p-12 space-y-10">
             @csrf
-            
             {{-- Sélection du Rôle --}}
             <div class="space-y-4">
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Type d'utilisateur</label>
@@ -43,25 +54,34 @@
                     </label>
                 </div>
             </div>
+            @error('role')
+                <span style="color: red; font-size: 12px;">{{$message}}</span>
+            @enderror
 
             {{-- Informations Personnelles --}}
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">nom complet</label>
                     <input type="text" name="name" placeholder="Jean" required 
-                           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        @error('name')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                 </div>
 
                 <!-- <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nom</label>
                     <input type="text" name="last_name" placeholder="Dupont" required 
-                           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                 </div> -->
 
                 <div class="md:col-span-2 space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Professionnel</label>
                     <input type="email" name="email" placeholder="jean.dupont@ecole.com" required 
-                           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        @error('email')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                 </div>
 
                 {{-- Nouveaux Champs : Sécurité --}}
@@ -69,7 +89,10 @@
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Mot de passe</label>
                     <div class="relative">
                         <input type="password" name="password" id="password" required 
-                               class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                            class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                            @error('password')
+                                <span style="color: red; font-size: 12px;">{{$message}}</span>
+                            @enderror
                         <button type="button" onclick="togglePassword('password')" class="absolute right-5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-indigo-600">
                             <i class="fas fa-eye text-sm"></i>
                         </button>
@@ -80,20 +103,26 @@
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Confirmer le mot de passe</label>
                     <div class="relative">
                         <input type="password" name="password_confirmation" id="password_confirmation" required 
-                               class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                            class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                     </div>
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Âge</label>
                     <input type="number" name="age" placeholder="22" 
-                           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        @error('age')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                 </div>
 
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Téléphone</label>
                     <input type="tel" name="phone" placeholder="06 00 00 00 00" 
-                           class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
+                        @error('phone')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                 </div>
 
                 <!-- <div class="md:col-span-2 space-y-2" id="class-selection-container">

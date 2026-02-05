@@ -8,7 +8,7 @@ use App\Http\Requests\SkillRequest;
 
 class SkillController extends Controller
 {
-    public function submitSkill(SkillRequest $request){
+    public function store(SkillRequest $request){
         $skill = Skill::create([
             'code' => $request->code,
             'title' => $request->title

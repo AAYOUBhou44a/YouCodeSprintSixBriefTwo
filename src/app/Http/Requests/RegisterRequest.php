@@ -19,6 +19,18 @@ class RegisterRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
+//     $this->merge([...])
+// C'est une méthode de Laravel. Elle permet de réécrire ou d'ajouter des données dans la requête
+    public function prepareForValidation(){
+        if($this->phone){
+            $this->merge([
+                'phone' => str_replace(' ', '', $this->phone)
+            ]);
+        }
+    }
+
+
     public function rules(): array
     {
         return [
@@ -26,7 +38,7 @@ class RegisterRequest extends FormRequest
         'email' => 'required|email|unique:users,email',
         'password' => 'required|min:5|confirmed',
         'role' => 'required|in:teacher,student',
-        'age' => 'required|integer|between:18,35',// Pas d'espace après la virgule
+        'age' => 'required|integer|between:18,60',// Pas d'espace après la virgule
         'phone' => 'required|size:10|starts_with:06,07',
         ];
     }
@@ -34,7 +46,7 @@ class RegisterRequest extends FormRequest
     public function messages(){
         return [
             'phone.starts_with' => 'le numéro de téléphone doit commencer par 06 ou 07',
-            'password.confirmed' => 'confirmation de mot de passe invlide',
+            'password.confirmed' => 'confirmation de mot de passe invalide',
             'role.in' => 'role invalide(roles: student, teacher)',
             'age.integer' => 'il faut entrer un age valide',
             'age.between' => 'l age doit etre compris entre 18 et 35',

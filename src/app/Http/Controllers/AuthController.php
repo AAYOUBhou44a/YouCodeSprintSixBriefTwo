@@ -22,20 +22,20 @@ class AuthController extends Controller
 
             switch($user->role){
                 case 'admin':
-                    return redirect()->route('create-user');
+                    return redirect()->route('admin.users.create');
                 case 'teacher':
-                    return redirect()->route('create-brief');
+                    return redirect()->route('teacher.briefs.create');
                 case 'student':
-                    return redirect()->route('student-briefs');
+                    return redirect()->route('student.briefs.index');
                 default :
-                    return redirect()->route('student-briefs');
+                    return redirect()->route('student.briefs.index');
             }
             
         }
         return back();
     }
 
-    public function submitUser(RegisterRequest $request){
+    public function store(RegisterRequest $request){
         $created = User::create([
         'name' => $request->name,
         'email' => $request->email,

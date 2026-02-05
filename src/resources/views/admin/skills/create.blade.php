@@ -41,16 +41,22 @@
                 <div class="bg-white rounded-[3rem] p-10 border border-slate-100 shadow-xl shadow-slate-100/50 sticky top-12">
                     <h2 class="text-2xl font-black mb-8 tracking-tight">Éditeur de<br/>compétence</h2>
                     
-                    <form action="/submitSkill" method="POST" class="space-y-6">
+                    <form action="/skills" method="POST" class="space-y-6">
                         @csrf
                         <div class="group">
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-2">Code Unique</label>
                             <input type="text" name="code" placeholder="ex: C1" class="w-full px-6 py-4 bg-slate-50 border border-transparent rounded-2xl focus:bg-white focus:border-indigo-500/20 focus:ring-4 focus:ring-indigo-500/5 outline-none font-bold transition-all">
+                            @error('code')
+                                <span style="color: red; font-size: 12px;">{{$message}}</span>
+                            @enderror
                         </div>
 
                         <div class="group">
                             <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3 ml-2">Nom de la compétence</label>
                             <input type="text" name="title" placeholder="ex: Maquetter une application" class="w-full px-6 py-4 bg-slate-50 border border-transparent rounded-2xl focus:bg-white focus:border-indigo-500/20 focus:ring-4 focus:ring-indigo-500/5 outline-none font-bold transition-all">
+                            @error('title')
+                                <span style="color: red; font-size: 12px;">{{$message}}</span>
+                            @enderror
                         </div>
 
                         <!-- <div class="group">
