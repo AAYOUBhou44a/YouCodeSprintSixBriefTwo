@@ -33,6 +33,9 @@
                     <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Titre du projet</label>
                     <input type="text" name="title" value="Plateforme E-commerce Fullstack Laravel" 
                         class="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl focus:bg-white focus:border-indigo-500 focus:ring-0 transition-all font-bold text-slate-800">
+                        @error('title')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                 </div>
 
                 <div class="space-y-3">
@@ -42,6 +45,9 @@
                         <option value="{{$sprint->id}}">{{$sprint->name}}</option>
                         @endforeach
                     </select>
+                    @error('sprint_id')
+                        <span style="color: red; font-size: 12px;">{{$message}}</span>
+                    @enderror
                 </div>
             </div>
         </div>
@@ -60,16 +66,25 @@
                         <div class="py-3 rounded-xl text-[10px] font-black uppercase peer-checked:bg-white peer-checked:text-indigo-600 transition-all text-slate-400">Groupe</div>
                     </label>
                 </div>
+                @error('type')
+                    <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
 
             <div class="space-y-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Début</label>
                 <input type="date" name="start_date" value="2026-02-15" class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent rounded-2xl font-bold text-slate-700">
+                @error('start_date')
+                    <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
 
             <div class="space-y-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Fin</label>
                 <input type="date" name="end_date" value="2026-03-01" class="w-full px-6 py-4 bg-slate-50 border-2 border-transparent rounded-2xl font-bold text-rose-500">
+                @error('end_date')
+                    <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
         </div>
 
@@ -78,10 +93,16 @@
             <div class="space-y-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Description</label>
                 <textarea name="description" rows="2" class="w-full px-8 py-5 bg-slate-50 border-2 border-transparent rounded-2xl font-medium text-slate-600">Résumé du projet pour l'affichage en liste.</textarea>
+                @error('description')
+                    <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
             <div class="space-y-3">
                 <label class="text-[10px] font-bold text-slate-500 uppercase tracking-widest ml-1">Contenu détaillé</label>
                 <textarea name="content" rows="4" class="w-full px-8 py-6 bg-slate-50 border-2 border-transparent rounded-[2.5rem] font-medium text-slate-600 text-sm">Instructions complètes...</textarea>
+                @error('content')
+                    <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
         </div>
 
@@ -100,13 +121,16 @@
                 <div class="flex flex-col md:flex-row md:items-center justify-between p-6 bg-slate-50 border-2 border-transparent rounded-3xl hover:bg-white hover:border-indigo-100 transition-all gap-4">
                     <div class="flex items-center gap-5">
                         <div class="relative flex items-center">
-                            <input type="checkbox" name="competences[]" value="C1" class="peer w-6 h-6 border-2 border-slate-200 rounded-lg checked:bg-indigo-600 appearance-none cursor-pointer">
+                            <input type="checkbox" name="skill_ids[]" value="{{$skill->id}}" class="peer w-6 h-6 border-2 border-slate-200 rounded-lg checked:bg-indigo-600 appearance-none cursor-pointer">
                             <i class="fas fa-check absolute text-[10px] text-white opacity-0 peer-checked:opacity-100 left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"></i>
                         </div>
                         <div>
                             <span class="block text-xs font-black text-slate-700 uppercase">{{$skill->code}} - {{$skill->title}}</span>
                             <span class="block text-[11px] text-slate-400 font-medium italic">{{$skill->title}}</span>
                         </div>
+                        @error('skill_ids')
+                            <span style="color: red; font-size: 12px;">{{$message}}</span>
+                        @enderror
                     </div>
                     <div class="flex items-center gap-3 bg-white p-2 rounded-2xl shadow-sm border border-slate-100 w-fit">
                         <span class="text-[9px] font-black text-slate-400 uppercase px-2">Niveau</span>
@@ -129,6 +153,9 @@
                             <div class="w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black bg-slate-50 text-slate-400 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">3</div>
                         </label>
                     </div>
+                    @error('level')
+                        <span style="color: red; font-size: 12px;">{{$message}}</span>
+                    @enderror
                 </div>
 
                 <!-- "level" => [
@@ -141,7 +168,7 @@
             </div>
         </div>
 
-        <input type="hidden" name="class_id" value="1">
+        <input type="hidden" name="classe_id" value="1">
 
         {{-- Footer --}}
         <div class="flex flex-col md:flex-row items-center justify-between gap-6 pt-10">

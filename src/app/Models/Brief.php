@@ -15,7 +15,7 @@ class Brief extends Model
         'content',
         'type',
         'sprint_id',
-        'class_id',
+        'classe_id',
         'start_date',
         'end_date'
     ];

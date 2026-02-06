@@ -11,7 +11,7 @@ class BriefRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,58 @@ class BriefRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+        'title' => 'required|unique:briefs,title|min:5|string',
+        'description' => 'required|min:5|string',
+        'content' => 'required|string',
+        'type' => 'required|in:individuel,collectif',
+        'sprint_id' => 'required|integer|exists:sprints,id',
+        'classe_id' => 'required|integer|exists:classes,id',
+        'start_date' => 'required|date|after_or_equal:today',
+        'end_date' => 'required|date|before_or_equal:2026-05-15|after:start_date',
+        'skill_ids' => 'required|array|min:1|',
+        'skill_ids.*' => 'required|exists:skills,id',
+        'level' => 'required|array',
+        'level.*' => 'required|in:1,2,3'
+        // on ne met pas [] chez la validation des tableaux
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            // Titre
+        'title.required' => 'Le titre est obligatoire.',
+        'title.unique'   => 'Ce titre de brief existe déjà.',
+        'title.min'      => 'Le titre doit contenir au moins 5 caractères.',
+
+        // Champs textes
+        'description.required' => 'La description est obligatoire.',
+        'description.min'      => 'La description doit être plus détaillée (min 5 caractères).',
+        'content.required'     => 'Le contenu détaillé du brief est obligatoire.',
+
+        // Type et Sélections
+        'type.required'      => 'Veuillez choisir si le brief est individuel ou collectif.',
+        'type.in'            => 'Le type sélectionné est invalide.',
+        'sprint_id.required' => 'Vous devez sélectionner un sprint.',
+        'sprint_id.exists'   => 'Le sprint sélectionné n\'existe pas.',
+        'classe_id.required' => 'Veuillez sélectionner une classe.',
+        'classe_id.exists'   => 'La classe sélectionnée est invalide.',
+
+        // Dates
+        'start_date.required'       => 'La date de début est obligatoire.',
+        'start_date.after_or_equal' => 'Le brief ne peut pas commencer avant aujourd\'hui.',
+        'end_date.required'         => 'La date de fin est obligatoire.',
+        'end_date.after'            => 'La date de fin doit être après la date de début.',
+        'end_date.before_or_equal'  => 'La date de fin ne peut pas dépasser le 15 mai 2026.',
+
+        // Compétences (Tableaux)
+        'skill_ids.required' => 'Vous devez sélectionner au moins une compétence.',
+        'skill_ids.min'      => 'Veuillez cocher au moins une compétence.',
+        'skill_ids.*.exists' => 'Une des compétences sélectionnées est invalide.',
+        
+        // Niveaux
+        'level.*.required' => 'Chaque compétence sélectionnée doit avoir un niveau.',
+        'level.*.in'       => 'Le niveau doit être compris entre 1 et 3.',
         ];
     }
 }

@@ -48,9 +48,8 @@ Route::get('/skills/create', function(){
 
 Route::post('/skills', [SkillController::class, 'store']);
 
-
 // __ ESPACE TEACHER __ 
-Route::get('/briefs/create', [BriefController::class, 'create']);
+Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
 
 // Route::get('/briefs/create', function(){
 //     return view('teacher.briefs.create');

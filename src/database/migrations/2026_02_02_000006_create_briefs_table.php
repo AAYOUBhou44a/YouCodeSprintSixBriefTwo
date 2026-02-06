@@ -19,8 +19,8 @@ return new class extends Migration
             $table->text('content');
             $table->enum('type', ['individuel', 'collectif']);
             $table->foreignId('sprint_id')->constrained();
-            $table->foreignId('class_id')->constrained();
-            // Par convention Laravel (Eloquent), on utilise le snake_case pour les clés étrangères, donc class_id.
+            $table->foreignId('classe_id')->constrained();
+            // Par convention Laravel (Eloquent), on utilise le snake_case pour les clés étrangères, donc classe_id.
             $table->dateTime('start_date');
             $table->dateTime('end_date');
         });

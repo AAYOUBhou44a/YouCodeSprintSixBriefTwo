@@ -75,5 +75,5 @@ class User extends Authenticatable
 //         return $this->role === 'teacher';
 //     }
 
-
 }
+
