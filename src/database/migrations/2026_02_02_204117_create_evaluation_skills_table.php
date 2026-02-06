@@ -1,0 +1,31 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('evaluation_skills', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
+            $table->foreignId('skill_id')->constrained();
+            $table->enum('level', ['IMITER', 'S_ADAPTER', 'TRANSPOSER']);
+            $table->enum('validation', ['valide', 'invalide']);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('evaluation_skills');
+    }
+};

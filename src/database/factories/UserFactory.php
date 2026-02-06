@@ -28,6 +28,13 @@ class UserFactory extends Factory
             'email' => fake()->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
+            // 'role' => $this->faker->randomElement(['', '', ''])
+            'age' => $this->faker->numberBetween(18, 35),
+            'phone' => $this->faker->numerify('06########'),
+            // Sélectionne l'ID d'un Sprint au hasard parmi ceux qui existent déjà
+            'classe_id' => \App\Models\Classe::all()->random()->id,
+             // Crée un classe tout neuf automatiquement
+            // 'sprint_id' => \App\Models\Sprint::factory()
             'remember_token' => Str::random(10),
         ];
     }

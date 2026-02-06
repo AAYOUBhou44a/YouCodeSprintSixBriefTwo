@@ -21,6 +21,10 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
+        'age',
+        'phone',
+        'classe_id'
     ];
 
     /**
@@ -45,4 +49,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+
+    public function classe(){
+        return $this->belongsTo(Classe::class);
+    }
+
+    public function evaluations(){
+        return $this->hasMany(Evaluation::class);
+    }
+
+// /**
+//      // HELPER : Vérifier si l'utilisateur est un étudiant
+//      
+//     public function isStudent(): bool
+//     {
+//         return $this->role === 'student';
+//     }
+
+//     /**
+//      // HELPER : Vérifier si l'utilisateur est un formateur
+//      
+//     public function isTeacher(): bool
+//     {
+//         return $this->role === 'teacher';
+//     }
+
 }
+
