@@ -10,7 +10,7 @@ use App\Http\Requests\ClasseRequest;
 class ClasseController extends Controller
 {
     public function create(){
-        $students = User::where('role', 'student')->get(['id', 'name', 'email']);
+        $students = User::where('role', 'student')->whereNull('classe_id')->get(['id', 'name', 'email']);
         $teachers = User::where('role', 'teacher')->whereNull('classe_id')->get(['id', 'name']);
         return view('admin.classes.create', compact('students', 'teachers'));
     }
@@ -37,6 +37,8 @@ class ClasseController extends Controller
             // $classe->id : $classe est la classe crée au dessus 
         ]);
 
-        return $updateStudents ? redirect()->route('admin.users.create') : back();
+        $updateTeacher = User::where('id', $request->teacher_id)->update(['classe_id' => $classe->id]);
+
+        return back();
     }
 }

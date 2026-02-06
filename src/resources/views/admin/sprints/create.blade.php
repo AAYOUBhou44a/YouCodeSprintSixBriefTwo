@@ -18,7 +18,7 @@
             </div>
         </div>
 
-        <form action="/store" method="POST" class="p-8 space-y-8">
+        <form action="/sprints" method="POST" class="p-8 space-y-8">
             @csrf
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BriefController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\SprintController;
@@ -40,6 +41,7 @@ Route::get('/sprints/create', function(){
 
 Route::post('/sprints', [SprintController::class, 'store']);
 
+// __ SKILLS __ 
 Route::get('/skills/create', function(){
     return view('admin.skills.create');
 })->name('admin.skills.create');
@@ -48,9 +50,14 @@ Route::post('/skills', [SkillController::class, 'store']);
 
 
 // __ ESPACE TEACHER __ 
-Route::get('/briefs/create', function(){
-    return view('teacher.briefs.create');
-})->name('teacher.briefs.create');
+Route::get('/briefs/create', [BriefController::class, 'create']);
+
+// Route::get('/briefs/create', function(){
+//     return view('teacher.briefs.create');
+// })->name('teacher.briefs.create');
+
+Route::post('/teacher/briefs', [BriefController::class, 'store']);
+// Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
 
 
 // __ ESPACE STUDENT __ 

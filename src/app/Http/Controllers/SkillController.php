@@ -14,6 +14,6 @@ class SkillController extends Controller
             'title' => $request->title
         ]);
 
-        return $skill ? redirect()->route('create-user') : back();
+        return $skill ? redirect()->route('teacher.briefs.create') : back();
     }
 }
