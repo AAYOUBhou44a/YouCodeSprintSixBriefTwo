@@ -1,6 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
+
+
+
+
 <div class="max-w-5xl mx-auto w-full p-4 lg:p-12">
     {{-- Header --}}
     <div class="relative bg-slate-900 rounded-t-[3rem] p-12 overflow-hidden border-b border-white/10">
@@ -17,10 +21,12 @@
         </div>
         <div class="absolute top-0 right-0 -mt-20 -mr-20 w-96 h-96 bg-indigo-600/20 rounded-full blur-[100px]"></div>
     </div>
-
+    
     <form action="/teacher/briefs" method="POST" class="bg-white rounded-b-[3rem] shadow-2xl shadow-slate-200/60 p-8 md:p-14 space-y-12">
+        @error('classe_id')
+            <p class="bg-red-500 text-white p-4 mb-6 rounded-xl">{{$message}}</p>
+        @enderror
         @csrf
-
         {{-- Section 1 : Identité --}}
         <div class="space-y-8">
             <div class="flex items-center gap-4">
@@ -128,43 +134,45 @@
                             <span class="block text-xs font-black text-slate-700 uppercase">{{$skill->code}} - {{$skill->title}}</span>
                             <span class="block text-[11px] text-slate-400 font-medium italic">{{$skill->title}}</span>
                         </div>
-                        @error('skill_ids')
-                            <span style="color: red; font-size: 12px;">{{$message}}</span>
-                        @enderror
                     </div>
                     <div class="flex items-center gap-3 bg-white p-2 rounded-2xl shadow-sm border border-slate-100 w-fit">
                         <span class="text-[9px] font-black text-slate-400 uppercase px-2">Niveau</span>
                         
                         {{-- Niveau 1 --}}
                         <label class="cursor-pointer">
-                            <input type="radio" name="level[{{ $skill->id }}]" value="1" class="peer hidden" checked>
+                            <input type="radio" name="level[{{ $skill->id }}]" value="IMITER" class="peer hidden" checked>
                             <div class="w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black bg-slate-50 text-slate-400 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">1</div>
                         </label>
-
+                        
                         {{-- Niveau 2 --}}
                         <label class="cursor-pointer">
-                            <input type="radio" name="level[{{ $skill->id }}]" value="2" class="peer hidden">
+                            <input type="radio" name="level[{{ $skill->id }}]" value="S_ADAPTER" class="peer hidden">
                             <div class="w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black bg-slate-50 text-slate-400 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">2</div>
                         </label>
-
+                        
                         {{-- Niveau 3 --}}
                         <label class="cursor-pointer">
-                            <input type="radio" name="level[{{ $skill->id }}]" value="3" class="peer hidden">
+                            <input type="radio" name="level[{{ $skill->id }}]" value="TRANSPOSER" class="peer hidden">
                             <div class="w-8 h-8 flex items-center justify-center rounded-xl text-xs font-black bg-slate-50 text-slate-400 peer-checked:bg-indigo-600 peer-checked:text-white transition-all">3</div>
                         </label>
                     </div>
-                    @error('level')
-                        <span style="color: red; font-size: 12px;">{{$message}}</span>
-                    @enderror
                 </div>
-
+                
                 <!-- "level" => [
-                    "1" => "2", // Compétence ID 1 -> Niveau 2
-                    "4" => "3", // Compétence ID 4 -> Niveau 3
-                    // ...
+                "1" => "2", // Compétence ID 1 -> Niveau 2
+                "4" => "3", // Compétence ID 4 -> Niveau 3
+                // ...
                 ] -->
                 @endforeach
                 
+                @error('skill_ids')
+                <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
+
+
+                @error('level')
+                <span style="color: red; font-size: 12px;">{{$message}}</span>
+                @enderror
             </div>
         </div>
 

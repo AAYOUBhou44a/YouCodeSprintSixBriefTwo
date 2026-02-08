@@ -20,4 +20,8 @@ class Skill extends Model
         ->withPivot('level');
     }
 
+    public function briefs(){
+        return $this->belogsToMany(Brief::class, 'brief_skills')->withPivot('level');
+    }
+
 }

@@ -17,4 +17,8 @@ class Classe extends Model
     public function students(){
         return $this->hasMany(User::class);
     }
+
+    public function briefs(){
+        return $this->hasMany(Brief::class);
+    }
 }

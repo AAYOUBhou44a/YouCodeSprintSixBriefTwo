@@ -30,7 +30,7 @@
                         <p class="text-slate-500 mt-2">Accédez à votre tableau de bord personnalisé.</p>
                     </div>
 
-                    <form action="/submitLogin" method="POST" class="space-y-5">
+                    <form action="/login" method="POST" class="space-y-5">
                         @csrf
                         <div>
                             <label class="block text-sm font-semibold text-slate-700 mb-1">Email professionnel</label>
@@ -41,6 +41,9 @@
                                 <input type="email" name="email" required 
                                     class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
                                     placeholder="nom@exemple.com">
+                                    @error('email')
+                                        <span style="color: red; font-size: 12px;">{{$message}}</span>
+                                    @enderror
                             </div>
                         </div>
 
@@ -56,6 +59,9 @@
                                 <input type="password" name="password" required 
                                     class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
                                     placeholder="••••••••">
+                                    @error('password')
+                                        <span style="color: red; font-size: 12px;">{{$message}}</span>
+                                    @enderror
                             </div>
                         </div>
 

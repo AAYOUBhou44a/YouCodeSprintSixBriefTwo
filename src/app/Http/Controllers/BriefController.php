@@ -21,28 +21,32 @@ class BriefController extends Controller
 
     public function store(BriefRequest $request){
         // cela ignore tous les champs malveillants qu'un utilisateur pourrait tenter d'injecter dans ta requête.
-        $request = $request->validated();
-        $brief = Brief::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'content' => $request->content,
-            'type' => $request->type,
-            'sprint_id' => $request->sprint_id,
-            'classe_id' => Auth::user()->class_id,
-            'start_date' => $request->start_date,
-            'end_date' => $request->end_date 
-        ]);
-        // $briefSkill = BriefSkill::whereIn('id', $request->skill_ids)->create([
+        $data  = $request->validated(); // $data ici devient un tableau associative , mais $requet est un objet
+        $data['classe_id'] = Auth::user()->classe_id;
+        $brief = Brief::create($data);
+        // $brief = Brief::create([
+        //     'title' => $request->title,
+        //     'description' => $request->description,
+        //     'content' => $request->content,
+        //     'type' => $request->type,
+        //     'sprint_id' => $request->sprint_id,
+        //     'classe_id' => Auth::user()->classe_id,
+        //     'start_date' => $request->start_date,
+        //     'end_date' => $request->end_date 
+        // ]);
+        // // $briefSkill = BriefSkill::whereIn('id', $request->skill_ids)->create([
         //     'brief_id' => $brief->id,
         //     'skill_id' => $skill_id,
         //     'level' => $request->level[$skill_id]
         // ]);
-        foreach($request->skill_ids as $skill_id){
+        foreach($data['skill_ids'] as $skill_id){
             BriefSkill::create([
                 'brief_id' => $brief->id,
                 'skill_id' => $skill_id,
-                'level' => $request->level[$skill_id]
+                'level' => $data['level'][$skill_id]
             ]);
         }
+        
+        return $brief ? redirect()->route('admin.users.create') : redirect()->route('admin.sprints.create');
     }
 }
