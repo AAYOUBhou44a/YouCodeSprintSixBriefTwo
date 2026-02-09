@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class Realisation extends Model
 {
-    $fillable = [
+    protected $fillable = [
         'brief_id',
         'student_id',
         'link',
         'commentaire',
         'evaluation_id',
-        'evaluation'
-    ]
+        'status'
+    ];
 
     public function brief(){
         return $this->belongsTo(Brief::class);

@@ -1,6 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
+@if ($errors->any())
+    <div class="bg-red-500 text-white p-4 mb-6 rounded-xl">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 <div class="max-w-6xl mx-auto w-full p-6 lg:p-10">
     
     <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-12">

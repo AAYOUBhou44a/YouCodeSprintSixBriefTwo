@@ -27,7 +27,7 @@ class Evaluation extends Model
     }
 
     public function skills(){
-        return $this->belogsToMany(Skill::class, 'evaluation_skills')->withPivot('level_id', 'validation');
+        return $this->belongsToMany(Skill::class, 'evaluation_skills')->withPivot('level_id', 'validation');
     }
 
     // public function skills(){

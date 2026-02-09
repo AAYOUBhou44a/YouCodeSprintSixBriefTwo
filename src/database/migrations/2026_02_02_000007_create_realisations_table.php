@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('brief_id')->constrained();
-            $table->foreignId('student_id')->contrained('users');
+            $table->foreignId('student_id')->constrained('users');
             $table->string('link');
             $table->text('commentaire')->nullable();
-            $table->foreignId('evaluation_id')->constrained()->nullable();
-            $table->enum('evaluation',['evaluated', 'nonEvaluated'])->default('nonEvaluated');
+            $table->enum('status',['evaluated', 'nonEvaluated'])->default('nonEvaluated');
         });
     }
 
