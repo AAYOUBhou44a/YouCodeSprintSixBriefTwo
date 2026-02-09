@@ -60,6 +60,4 @@ Route::post('/teacher/briefs', [BriefController::class, 'store']);
 
 
 // __ ESPACE STUDENT __ 
-Route::get('/briefs', function(){
-    return view('student.briefs.index');
-})->name('student.briefs.index');
+Route::get('/briefs', [BriefController::class, 'index'])->name('student.briefs.index');

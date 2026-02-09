@@ -49,4 +49,15 @@ class BriefController extends Controller
         
         return $brief ? redirect()->route('admin.users.create') : redirect()->route('admin.sprints.create');
     }
+
+    public function index(){
+        $classe_id = Auth::user()->classe_id;
+        $latestBrief = Brief::latest()->where('classe_id', $classe_id)->with(['sprint', 'skills'])->first();
+        if($latestBrief){
+            $briefs = Brief::latest()->where('classe_id', $classe_id)->where('id', '!=', $latestBrief->id)->get();
+    
+            return view('student.briefs.index', compact('latestBrief', 'briefs'));
+        }
+        return back();
+    }
 }

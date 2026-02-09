@@ -15,8 +15,11 @@ class Evaluation extends Model
         'comment'
     ];
 
-    public function brief(){
-        return $this->belongsTo(Brief::class);
+    // public function brief(){
+    //     return $this->belongsTo(Brief::class);
+    // }
+    public function realisation(){
+        return $this->belongsTo(Realisation::class);
     }
 
     public function student(){

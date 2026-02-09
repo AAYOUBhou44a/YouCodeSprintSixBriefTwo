@@ -59,6 +59,10 @@ class User extends Authenticatable
         return $this->hasMany(Evaluation::class);
     }
 
+    public function realisations(){
+        return $this->hasMany(Realisation::class);
+    }
+
 // /**
 //      // HELPER : Vérifier si l'utilisateur est un étudiant
 //      

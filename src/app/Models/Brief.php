@@ -39,9 +39,12 @@ class Brief extends Model
         return $this->belongsTo(Classe::class);
     }
 
-    public function evaluations(){
-        return $this->hasMany(Evaluation::class);
+    public function realisations(){
+        return $this->hasMany(Realisation::class);
     }
+    // public function evaluations(){
+    //     return $this->hasMany(Evaluation::class);
+    // }
 
     public function skills(){
         return $this->belongsToMany(Skill::class, 'brief_skills')->withPivot('level');
