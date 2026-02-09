@@ -11,7 +11,6 @@ class Realisation extends Model
         'student_id',
         'link',
         'commentaire',
-        'evaluation_id',
         'status'
     ];
 

@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-
-
 <div class="max-w-5xl mx-auto w-full p-4 lg:p-12">
     {{-- Header --}}
     <div class="relative bg-slate-900 rounded-t-[3rem] p-12 overflow-hidden border-b border-white/10">

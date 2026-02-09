@@ -1,6 +1,7 @@
 
         @extends('layouts.app')
         @section('content')
+        
         <div class="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-slate-100">
                 
                 <div class="hidden lg:flex w-1/2 bg-indigo-700 relative p-12 flex-col justify-between overflow-hidden">
@@ -58,7 +59,7 @@
                                 </span>
                                 <input type="password" name="password" required 
                                     class="w-full pl-10 pr-4 py-3 rounded-xl border border-slate-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition outline-none"
-                                    placeholder="••••••••">
+                                    placeholder="••••••••" autocomplete="off">
                                     @error('password')
                                         <span style="color: red; font-size: 12px;">{{$message}}</span>
                                     @enderror
@@ -66,7 +67,7 @@
                         </div>
 
                         <div class="flex items-center">
-                            <input type="checkbox" id="remember" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded">
+                            <input autocomplete="off" type="checkbox" id="remember" class="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-slate-300 rounded">
                             <label for="remember" class="ml-2 block text-sm text-slate-600">Se souvenir de moi</label>
                         </div>
 

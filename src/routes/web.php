@@ -66,4 +66,10 @@ Route::middleware('auth')->group(function(){
     
     // __ ESPACE STUDENT __ 
     Route::get('/briefs', [BriefController::class, 'index'])->name('student.briefs.index')->middleware('can:student_only');
+    // Route::get('briefs/store', function(){
+    //     return view('student.briefs.submit');
+    // })->middleware('can:student_only');
+
+    Route::get('/brief/show/{id}', [BriefController::class, 'show']); //on n'utilise pas {{id}}
+    Route::post('/brief/submit', [BriefController::class, 'submit']);
 });

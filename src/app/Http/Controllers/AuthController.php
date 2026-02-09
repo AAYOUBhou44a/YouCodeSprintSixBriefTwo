@@ -32,7 +32,9 @@ class AuthController extends Controller
             }
             
         }
-        return back();
+        return back()->withErrors([
+            'email' => 'L\'adresse email ou le mot de passe est incorrect'
+        ])->onlyInput('email');
     }
 
     public function store(RegisterRequest $request){

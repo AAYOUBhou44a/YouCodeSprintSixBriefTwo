@@ -29,7 +29,7 @@ class AppServiceProvider extends ServiceProvider
             return $user->role === 'teacher';
         });
 
-        Gate::define('stuent_only', function(User $user){
+        Gate::define('student_only', function(User $user){
             return $user->role === 'student';
         });
     }

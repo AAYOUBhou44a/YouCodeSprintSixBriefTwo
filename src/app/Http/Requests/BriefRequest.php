@@ -2,10 +2,17 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
 
 class BriefRequest extends FormRequest
 {
+    protected function prepareForValidation(){
+        $this->merge([
+            // On injecte le classe_id de l'utilisateur directement dans la requête
+            'classe_id' => Auth::user()->classe_id
+        ]);
+    }
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -33,7 +40,7 @@ class BriefRequest extends FormRequest
         'skill_ids' => 'required|array|min:1|',
         'skill_ids.*' => 'required|exists:skills,id',
         'level' => 'required|array',
-        'level.*' => 'required|in:1,2,3'
+        'level.*' => 'required|in:IMITER,TRANSPOSER,S_ADAPTER'
         // on ne met pas [] chez la validation des tableaux
         ];
     }
