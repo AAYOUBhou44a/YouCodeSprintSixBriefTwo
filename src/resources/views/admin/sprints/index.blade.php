@@ -37,12 +37,20 @@
                 </div>
             </div>
             <div class="flex gap-2 opacity-0 group-hover:opacity-100 transition-all">
-                <button class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
+
+                <a href="/sprints/edit/{{$sprint->id}}" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-indigo-50 hover:text-indigo-600 transition-all">
                     <i class="fas fa-edit"></i>
-                </button>
-                <button class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all">
-                    <i class="fas fa-trash"></i>
-                </button>
+                </a>
+                <form action="/sprints/{{$sprint->id}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="w-10 h-10 flex items-center justify-center rounded-xl text-slate-400 hover:bg-red-50 hover:text-red-500 transition-all">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </form>
+
+
+                
             </div>
         </div>
         @endforeach

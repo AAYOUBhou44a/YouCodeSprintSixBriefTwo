@@ -21,8 +21,9 @@ class SprintRequest extends FormRequest
      */
     public function rules(): array
     {
+        $sprint_id = $this->route('sprint')->id;
         return [
-        'name' => 'required|unique:sprints,name|min:5',
+        'name' => 'required|min:5|unique:sprints,name,' . $sprint_id,
         'start_date' => 'required|date|after_or_equal:today|before_or_equal:2026-05-15',
         'end_date' => 'required|date|after:start_date|before_or_equal:2026-05-15'
         ];

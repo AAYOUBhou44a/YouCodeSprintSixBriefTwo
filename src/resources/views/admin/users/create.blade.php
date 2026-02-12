@@ -31,9 +31,9 @@
                 </div>
             </div>
         @endif -->
-        <form action="{{$user ? '/users/' . $user->id : '/users'}}" method="POST" class="p-8 md:p-12 space-y-10">
+        <form action="{{isset($user) ? '/users/' . $user->id : '/users'}}" method="POST" class="p-8 md:p-12 space-y-10">
             @csrf
-            @if($user)
+            @if(isset($user))
                 @method('PUT')
             @endif
             {{-- Sélection du Rôle --}}
@@ -41,7 +41,7 @@
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Type d'utilisateur</label>
                 <div class="grid grid-cols-2 gap-4">
                     <label class="relative group cursor-pointer">
-                        <input type="radio" name="role" value="student" class="peer sr-only" {{$user->role === 'student' ? 'checked' : ''}}>
+                        <input type="radio" name="role" value="student" class="peer sr-only" {{ isset($user) && $user->role === 'student' ? 'checked' : ''}}>
                         <div class="flex flex-col items-center justify-center p-6 border-2 border-slate-100 rounded-3xl bg-slate-50/50 transition-all peer-checked:border-indigo-600 peer-checked:bg-indigo-50/30 peer-checked:ring-4 peer-checked:ring-indigo-50">
                             <i class="fas fa-user-graduate mb-3 text-2xl text-slate-400 peer-checked:text-indigo-600"></i>
                             <span class="text-sm font-bold text-slate-600 peer-checked:text-indigo-900">Apprenant</span>
@@ -49,7 +49,7 @@
                     </label>
 
                     <label class="relative group cursor-pointer">
-                        <input type="radio" name="role" value="teacher" class="peer sr-only" {{$user->role === 'teacher' ? 'checked' : ''}}>
+                        <input type="radio" name="role" value="teacher" class="peer sr-only" {{ isset($user) && $user->role === 'teacher' ? 'checked' : ''}}>
                         <div class="flex flex-col items-center justify-center p-6 border-2 border-slate-100 rounded-3xl bg-slate-50/50 transition-all peer-checked:border-indigo-600 peer-checked:bg-indigo-50/30 peer-checked:ring-4 peer-checked:ring-indigo-50">
                             <i class="fas fa-chalkboard-teacher mb-3 text-2xl text-slate-400 peer-checked:text-indigo-600"></i>
                             <span class="text-sm font-bold text-slate-600 peer-checked:text-indigo-900">Formateur</span>

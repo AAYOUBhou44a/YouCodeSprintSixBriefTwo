@@ -51,11 +51,17 @@ Route::middleware('auth')->group(function(){
         // __ SPRINTS __ 
         Route::get('/sprints/create', function(){
             return view('admin.sprints.create');
-        })->name('admin.sprints.create');
+        })->name('sprints.create');
         
         Route::post('/sprints', [SprintController::class, 'store']);
 
         Route::get('/sprints', [SprintController::class, 'index'])->name('sprints.index');
+
+        Route::delete('/sprints/{sprint}', [SprintController::class, 'destroy']);
+
+        Route::get('/sprints/edit/{sprint}', [SprintController::class, 'edit']);
+
+        Route::put('/sprints/{sprint}', [SprintController::class, 'update']);
         
         // __ SKILLS __ 
         Route::get('/skills/create', [SkillController::class, 'create'])->name('admin.skills.create');
