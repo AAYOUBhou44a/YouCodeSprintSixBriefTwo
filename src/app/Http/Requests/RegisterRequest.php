@@ -33,9 +33,14 @@ class RegisterRequest extends FormRequest
 
     public function rules(): array
     {
+        // On récupère l'ID de l'utilisateur présent dans l'URL
+        $user = $this->route('user');
+        $user_id = $user->id;
         return [
         'name' => 'required|min:6',
-        'email' => 'required|email|unique:users,email',
+        // On demande d'ignorer cet ID spécifique pour la règle unique
+        // Ajout de la virgule AVANT le $user_id
+        'email' => 'required|email|unique:users,email,' . $user_id,
         'password' => 'required|min:5|confirmed',
         'role' => 'required|in:teacher,student',
         'age' => 'required|integer|between:18,60',// Pas d'espace après la virgule

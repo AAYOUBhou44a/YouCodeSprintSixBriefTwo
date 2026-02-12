@@ -31,16 +31,22 @@ Route::middleware('auth')->group(function(){
         
         Route::post('/classes', [ClasseController::class, 'store']);
         
-        Route::get('/classes', [ClasseController::class, 'index'])->name('classes');
+        Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
         
         // __ USERS __
         Route::get('/users/create', function(){
             return view('admin.users.create');
-        })->name('admin.users.create');
+        })->name('users.create');
         
         Route::post('/users', [AuthController::class, 'store']);
 
-        Route::get('/users', [UserController::class, 'index']);
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
+
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+
+        Route::get('/users/edit/{user}', [UserController::class , 'edit']);
+
+        Route::put('/users/{user}', [UserController::class, 'update']);
         
         // __ SPRINTS __ 
         Route::get('/sprints/create', function(){
@@ -49,7 +55,7 @@ Route::middleware('auth')->group(function(){
         
         Route::post('/sprints', [SprintController::class, 'store']);
 
-        Route::get('/sprints', [SprintController::class, 'index']);
+        Route::get('/sprints', [SprintController::class, 'index'])->name('sprints.index');
         
         // __ SKILLS __ 
         Route::get('/skills/create', [SkillController::class, 'create'])->name('admin.skills.create');

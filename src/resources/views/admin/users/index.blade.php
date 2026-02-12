@@ -70,7 +70,7 @@
                         <span class="px-3 py-1 bg-amber-50 text-amber-600 rounded-lg text-[9px] font-black uppercase border border-amber-100">Formateur</span>
                     </td>
                     <td class="px-8 py-5">
-                        <span class="text-sm font-bold text-slate-600 tracking-tight">{{$teacher->classe->name}}</span>
+                        <span class="text-sm font-bold text-slate-600 tracking-tight">{{$teacher->classe->name ?? 'Aucune classe'}}</span>
                     </td>
                     <td class="px-8 py-5 text-right">
                         <div class="flex justify-end gap-2">
@@ -96,12 +96,22 @@
                         <span class="px-3 py-1 bg-indigo-50 text-indigo-600 rounded-lg text-[9px] font-black uppercase border border-indigo-100">Étudiant</span>
                     </td>
                     <td class="px-8 py-5">
-                        <span class="text-sm font-bold text-slate-600 tracking-tight">{{$student->classe->name ?? 'Aucun classe'}}</span>
+                        <span class="text-sm font-bold text-slate-600 tracking-tight">{{$student->classe->name ?? 'Aucune classe'}}</span>
                     </td>
                     <td class="px-8 py-5 text-right">
                         <div class="flex justify-end gap-2">
-                            <button class="p-2.5 bg-slate-50 text-slate-400 hover:text-indigo-600 rounded-xl transition-all"><i class="fas fa-pen text-xs"></i></button>
-                            <button class="p-2.5 bg-slate-50 text-slate-400 hover:text-rose-500 rounded-xl transition-all"><i class="fas fa-trash text-xs"></i></button>
+                            <!-- __ Update button __  -->
+                            <a href="/users/edit/{{$student->id}}" class="p-2.5 bg-slate-50 text-slate-400 hover:text-indigo-600 rounded-xl transition-all">
+                                <i class="fas fa-pen text-xs"></i>
+                            </a>
+                            <!-- __ Delete button __  -->
+                             <!--  route('users.destroy', $teacher->id)  ici on envoie un nombre donc pas besoin de mettre compact-->
+                             <form action="{{route('users.destroy', $student->id)}}" method="POST" 
+                                onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce formateur ?');">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="p-2.5 bg-slate-50 text-slate-400 hover:text-rose-500 rounded-xl transition-all"><i class="fas fa-trash text-xs"></i></button>
+                             </form>
                         </div>
                     </td>
                 </tr>

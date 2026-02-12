@@ -15,7 +15,7 @@
         <div class="flex gap-4">
             <div class="bg-white px-6 py-4 rounded-2xl border border-slate-100 shadow-sm text-right">
                 <p class="text-[9px] font-black text-slate-400 uppercase">Total Classes</p>
-                <p class="text-xl font-black text-slate-900">12</p>
+                <p class="text-xl font-black text-slate-900">{{$classes->count()}}</p>
             </div>
             <a href="/classes/create" class="inline-flex items-center px-8 py-4 bg-indigo-600 text-white rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-slate-900 transition-all shadow-xl shadow-indigo-100">
                 <i class="fas fa-plus mr-3"></i> Nouvelle Classe

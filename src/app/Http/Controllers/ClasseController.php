@@ -39,7 +39,7 @@ class ClasseController extends Controller
 
         $updateTeacher = User::where('id', $request->teacher_id)->update(['classe_id' => $classe->id]);
 
-        return redirect()->route('classes');
+        return redirect()->route('classes.index');
     }
 
     public function index(){

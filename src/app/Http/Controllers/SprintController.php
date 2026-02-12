@@ -15,7 +15,7 @@ class SprintController extends Controller
             'end_date' => $request->end_date
         ]);
 
-        return back();
+        return redirect()->route('sprints.index');
     }
 
     public function index(){

@@ -22,9 +22,9 @@ class AuthController extends Controller
 
             switch($user->role){
                 case 'admin':
-                    return redirect()->route('admin.users.create');
+                    return redirect()->route('users.index');
                 case 'teacher':
-                    return redirect()->route('teacher.briefs.create');
+                    return redirect()->route('realisations');
                 case 'student':
                     return redirect()->route('student.briefs.index');
                 default :
@@ -48,7 +48,7 @@ class AuthController extends Controller
         'classe_id' => null
         ]);
 
-        return back();
+        return redirect()->route('users.index');
     }
 
     public function logout(Request $request){
