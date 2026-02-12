@@ -50,4 +50,14 @@ class AuthController extends Controller
 
         return back();
     }
+
+    public function logout(Request $request){
+        // Déconnecte l'utilisateur du Guard
+        Auth::logout();
+        // Supprime toutes les données de la session actuelle
+        $request->session()->invalidate();
+        // Régénère le jeton CSRF pour éviter les failles de sécurité
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
+    }
 }

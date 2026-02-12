@@ -17,4 +17,10 @@ class SprintController extends Controller
 
         return back();
     }
+
+    public function index(){
+        $sprints = Sprint::oldest()->get();
+
+        return view('admin.sprints.index', compact('sprints'));
+    }
 }

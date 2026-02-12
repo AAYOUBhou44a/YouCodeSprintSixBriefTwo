@@ -39,7 +39,9 @@ class BriefController extends Controller
 
     public function index(){
         $classe_id = Auth::user()->classe_id;
-        $latestBrief = Brief::latest()->where('classe_id', $classe_id)->with(['sprint', 'skills'])->first();
+        $latestBrief = Brief::latest()->where('classe_id', $classe_id)->with(['sprint', 'skills', 'realisations' => function($query){
+            $query->where('student_id', Auth::id());
+        }])->first();
         $briefs = collect();
         if($latestBrief){
             $briefs = Brief::latest()->where('classe_id', $classe_id)->where('id', '!=', $latestBrief->id)->get();
@@ -57,5 +59,16 @@ class BriefController extends Controller
         $data = $request->validated();
         $realisation = Realisation::create($data);
         return back();
+    }
+
+    public function brief($id){
+        $brief = Brief::with(['sprint', 'skills', 'classe.teacher', 'realisations' => function($query){
+            $query->where('student_id', Auth::id());
+        }])
+        ->findOrFail($id);
+        // Le brief s'affiche même si l'étudiant n'a pas encore rendu son travail (pas de whereHas
+        //with renvoie toujours une colluctin meme vide 
+
+        return view('student.briefs.show', compact('brief'));
     }
 }

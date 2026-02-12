@@ -17,9 +17,7 @@
         @endauth -->
 
         <div class="flex-1 flex flex-col">
-            
             @include('partials.header')
-
             <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 @yield('content')
             </main>

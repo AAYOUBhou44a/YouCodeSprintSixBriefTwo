@@ -10,8 +10,7 @@ class Evaluation extends Model
     use HasFactory;
 
     protected $fillable = [
-        'brief_id',
-        'student_id',
+        'realisation_id', //il contient brief_id et student_id
         'comment'
     ];
 
@@ -22,12 +21,12 @@ class Evaluation extends Model
         return $this->belongsTo(Realisation::class);
     }
 
-    public function student(){
-        return $this->belongsTo(User::class);
-    }
+    // public function student(){
+    //     return $this->belongsTo(User::class);
+    // }
 
     public function skills(){
-        return $this->belongsToMany(Skill::class, 'evaluation_skills')->withPivot('level_id', 'validation');
+        return $this->belongsToMany(Skill::class, 'evaluation_skills')->withPivot('level', 'validation');
     }
 
     // public function skills(){

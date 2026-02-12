@@ -39,10 +39,13 @@
                 </p>
                 
                 <div class="flex flex-wrap items-center gap-6">
+                    
                     <a href="/brief/show/{{$latestBrief->id}}" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 transition-all hover:-translate-y-1 shadow-xl shadow-slate-200">
                         Soumettre mon travail
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-indigo-600 transition font-black text-[10px] uppercase tracking-[0.2em]">
+                 
+                    
+                    <a href="/briefs/brief/{{$latestBrief->id}}" class="text-slate-400 hover:text-indigo-600 transition font-black text-[10px] uppercase tracking-[0.2em]">
                         Voir le sujet complet
                     </a>
                 </div>
@@ -74,7 +77,7 @@
                         <div class="w-8 h-8 rounded-xl bg-slate-900 text-white border-2 border-white flex items-center justify-center text-[9px] font-black shadow-sm">{{$skill->code}}</div>
                         @endforeach
                     </div>
-                    <a href="#" class="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:underline">
+                    <a href="/briefs/brief/{{$brief->id}}" class="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:underline">
                         Voir Feedback
                     </a>
                 </div>

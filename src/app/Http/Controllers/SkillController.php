@@ -16,4 +16,10 @@ class SkillController extends Controller
 
         return $skill ? redirect()->route('teacher.briefs.create') : back();
     }
+
+    public function create(){
+        $skills = Skill::oldest()->get();
+
+        return view('admin.skills.create', compact('skills'));
+    }
 }

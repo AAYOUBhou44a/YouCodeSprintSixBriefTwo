@@ -39,6 +39,13 @@ class ClasseController extends Controller
 
         $updateTeacher = User::where('id', $request->teacher_id)->update(['classe_id' => $classe->id]);
 
-        return back();
+        return redirect()->route('classes');
+    }
+
+    public function index(){
+        $classes = Classe::with('teacher')->withCount('students')->get();
+        // pour afficher les étudiant obtenu par withCount , on utilise $classe->students_count : on ajoute _count à students 
+
+        return view('admin.classes.index', compact('classes'));
     }
 }

@@ -55,12 +55,21 @@ class User extends Authenticatable
         return $this->belongsTo(Classe::class);
     }
 
-    public function evaluations(){
-        return $this->hasMany(Evaluation::class);
-    }
+    // public function evaluations(){
+    //     return $this->hasMany(Evaluation::class);
+    // }
 
     public function realisations(){
-        return $this->hasMany(Realisation::class);
+        return $this->hasMany(Realisation::class, 'classe_id');
+    }
+
+    public function evaluations(){
+        return $this->hasManyThrough(
+        Evaluation::class,  // OÙ je veux aller ?
+        Realisation::class, // PAR OÙ je passe ?
+        'student_id',       // Comment le "Pont" me reconnaît ? (Clé dans Realisation)
+        'realisation_id'    // Comment la "Destination" reconnaît le pont ? (Clé dans Evaluation)
+    );
     }
 
 // /**

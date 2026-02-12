@@ -8,9 +8,9 @@
             <h1 class="text-3xl font-black text-slate-900 tracking-tight">Configuration Sprints</h1>
             <p class="text-slate-500 font-medium mt-1">Définissez la structure chronologique de la formation.</p>
         </div>
-        <button onclick="document.getElementById('modal-sprint').classList.remove('hidden')" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl text-xs font-black shadow-xl shadow-indigo-100 transition-all hover:-translate-y-1 flex items-center gap-2 uppercase tracking-widest">
+        <a href="/sprints/create" class="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-3 rounded-2xl text-xs font-black shadow-xl shadow-indigo-100 transition-all hover:-translate-y-1 flex items-center gap-2 uppercase tracking-widest">
             <i class="fas fa-plus text-base"></i> Nouveau Sprint
-        </button>
+        </a>
     </div>
 
     <div class="bg-white p-4 rounded-[2rem] border border-slate-200 shadow-sm mb-8 flex items-center justify-between px-8">
@@ -23,16 +23,16 @@
 
     <div class="space-y-4 relative">
         <div class="absolute left-10 top-0 bottom-0 w-0.5 bg-slate-100 -z-10"></div>
-
+        @foreach($sprints as $sprint)
         <div class="bg-white border border-slate-200 rounded-[2rem] p-6 flex items-center justify-between group hover:border-indigo-200 transition-all shadow-sm ml-4">
             <div class="flex items-center gap-6">
                 <div class="w-14 h-14 bg-slate-100 text-slate-400 rounded-2xl flex items-center justify-center font-black text-xl border-4 border-white shadow-sm">
-                    01
+                    Sp
                 </div>
                 <div>
-                    <h4 class="font-black text-slate-800 text-lg tracking-tight">Intégration & Maquettage</h4>
+                    <h4 class="font-black text-slate-800 text-lg tracking-tight">{{$sprint->name}}</h4>
                     <p class="text-[10px] font-bold text-slate-400 uppercase tracking-widest mt-1">
-                        <i class="fas fa-calendar-alt mr-1"></i> 4 Semaines • Terminé
+                        <i class="fas fa-calendar-alt mr-1"></i> {{$sprint->start_date->diffInDays($sprint->end_date)}} jours • commence le {{$sprint->start_date->isoFormat('LL')}}
                     </p>
                 </div>
             </div>
@@ -45,27 +45,7 @@
                 </button>
             </div>
         </div>
-
-        <div class="bg-white border-2 border-indigo-500 rounded-[2rem] p-6 flex items-center justify-between shadow-xl shadow-indigo-100 ml-4 relative">
-            <div class="absolute -left-[1.35rem] top-1/2 -translate-y-1/2 w-4 h-4 bg-indigo-500 rounded-full border-4 border-white"></div>
-            <div class="flex items-center gap-6">
-                <div class="w-14 h-14 bg-indigo-600 text-white rounded-2xl flex items-center justify-center font-black text-xl shadow-lg shadow-indigo-200">
-                    02
-                </div>
-                <div>
-                    <div class="flex items-center gap-3">
-                        <h4 class="font-black text-slate-800 text-lg tracking-tight">Backend & Architecture MVC</h4>
-                        <span class="px-3 py-1 bg-emerald-500 text-white text-[9px] font-black rounded-full uppercase tracking-widest animate-pulse">En cours</span>
-                    </div>
-                    <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-widest mt-1">
-                        <i class="fas fa-clock mr-1"></i> 3 Semaines • Débuté le 20 Janv.
-                    </p>
-                </div>
-            </div>
-            <button class="w-12 h-12 flex items-center justify-center rounded-2xl bg-indigo-50 text-indigo-600 hover:bg-indigo-600 hover:text-white transition-all">
-                <i class="fas fa-cog"></i>
-            </button>
-        </div>
+        @endforeach
     </div>
 </div>
 
