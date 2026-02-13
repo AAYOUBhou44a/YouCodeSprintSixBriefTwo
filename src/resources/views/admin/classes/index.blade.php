@@ -68,7 +68,8 @@
             
                     <td class="px-8 py-6 text-right">
                         <div class="flex justify-end gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
-                            <button class="p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-400 transition-all"><i class="fas fa-edit"></i></button>
+                            <a href="/classes/edit/{{$classe->id}}" class="p-2 hover:bg-indigo-50 hover:text-indigo-600 rounded-lg text-slate-400 transition-all"><i class="fas fa-edit"></i>
+                            </a>
                             <form action="/classes/{{$classe->id}}" method="POST">
                                 @csrf
                                 @method('DELETE')

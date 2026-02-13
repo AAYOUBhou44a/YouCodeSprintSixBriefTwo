@@ -53,4 +53,31 @@ class ClasseController extends Controller
         $classe->delete();
         return back()->with('success', 'classe supprimé avec succès');
     }
+
+    public function edit(Classe $classe){
+        $students = User::where('role', 'student')->where(
+            function($students) use ($classe){
+                $students->whereNull('classe_id')
+                ->orWhere('classe_id', $classe->id);
+            }
+        )->get(['id', 'name', 'email']);
+        $teachers = User::where('role', 'teacher')->whereNull('classe_id')->get(['id', 'name']);
+        return view('admin.classes.create', compact('classe', 'students', 'teachers'));
+    }
+
+    public function update(ClasseRequest $request, Classe $classe){
+        $data = $request->validated();
+        $classe->update($data);
+
+        $updateUsers = User::where('classe_id', $classe->id)->update(['classe_id' => null]);
+        // update() attend toujours un tableau ['colonne' => 'valeur'].
+        $updateStudents = User::whereIn('id', $request->student_ids)
+        ->update(['classe_id' => $classe->id]);
+
+        $updateTeacher = User::where('id', $request->teacher_id)
+        ->update(['classe_id' => $classe->id]);
+
+        return redirect()->route('classes.index')->with('success', 'classe met à jour avec succès');
+
+    }
 }

@@ -7,8 +7,11 @@
         Retour aux promotions
     </a>
 
-    <form action="/classes" method="POST" class="space-y-6">
+    <form action="{{isset($classe) ? '/classes/' . $classe->id : '/classes/'}}" method="POST" class="space-y-6">
         @csrf
+        @if(isset($classe))
+            @method('PUT')
+        @endif
         
         <div class="bg-white rounded-[2rem] shadow-sm border border-slate-200 overflow-hidden">
             <div class="bg-slate-900 p-8 text-white relative overflow-hidden">
@@ -22,7 +25,7 @@
             <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div class="md:col-span-2">
                     <label class="block text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-2 ml-1">Nom de la promotion</label>
-                    <input type="text" name="name" required placeholder="ex: DWWM - Promo 2026" 
+                    <input type="text" name="name" value="{{isset($classe) ? $classe->name : old('name') }}" required placeholder="ex: DWWM - Promo 2026" 
                         class="w-full px-6 py-4 bg-slate-50 border border-slate-100 rounded-2xl focus:ring-4 focus:ring-indigo-500/5 focus:border-indigo-500/20 focus:bg-white outline-none transition font-bold">
                         @error('name')
                             <span style="color: red; font-size: 12px;">{{$message}}</span>
@@ -36,6 +39,9 @@
                         @foreach($teachers as $teacher)
                         <option value="{{$teacher->id}}">{{$teacher->name}}</option>
                         @endforeach
+                        @if(isset($classe))
+                        <option value="{{$classe->teacher->id}}">{{$classe->teacher->name}}</option>
+                        @endif
                     </select>
                     @error('teacher_id')
                         <span style="color: red; font-size: 12px;">{{$message}}</span>

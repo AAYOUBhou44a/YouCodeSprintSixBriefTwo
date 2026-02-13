@@ -32,8 +32,13 @@ Route::middleware('auth')->group(function(){
         Route::post('/classes', [ClasseController::class, 'store']);
         
         Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
+
         Route::delete('/classes/{classe}', [ClasseController::class, 'destroy']);
-        
+
+        Route::get('/classes/edit/{classe}', [ClasseController::class, 'edit']);
+
+        Route::put('/classes/{classe}', [ClasseController::class, 'update']);
+
         // __ USERS __
         Route::get('/users/create', function(){
             return view('admin.users.create');
