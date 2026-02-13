@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('evaluation_id')->constrained()->onDelete('cascade');
-            $table->foreignId('skill_id')->constrained();
+            $table->foreignId('skill_id')->constrained()->onDelete('cascade');
             $table->enum('level', ['IMITER', 'S_ADAPTER', 'TRANSPOSER']);
             $table->enum('validation', ['valide', 'invalide']);
         });

@@ -32,6 +32,7 @@ Route::middleware('auth')->group(function(){
         Route::post('/classes', [ClasseController::class, 'store']);
         
         Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
+        Route::delete('/classes/{classe}', [ClasseController::class, 'destroy']);
         
         // __ USERS __
         Route::get('/users/create', function(){
@@ -68,7 +69,13 @@ Route::middleware('auth')->group(function(){
         
         Route::post('/skills', [SkillController::class, 'store']);
 
-        Route::get('skills', [SkillController::class, 'index']);
+        Route::get('/skills', [SkillController::class, 'index']);
+
+        Route::delete('/skills/{skill}', [SkillController::class, 'destroy']);
+
+        Route::get('/skills/edit/{skill}', [SkillController::class, 'edit']);
+
+        Route::put('/skills/{skill}', [SkillController::class, 'update']);
         
     });
     Route::middleware('can:teacher_only')->group(function(){

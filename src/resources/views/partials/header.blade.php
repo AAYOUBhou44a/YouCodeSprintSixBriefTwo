@@ -41,6 +41,9 @@
                     <a href="/classes" class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-indigo-600 transition flex items-center gap-2">
                         <i class="fas fa-graduation-cap"></i> Classe
                     </a>
+                    <a href="/skills/create" class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-indigo-600 transition flex items-center gap-2">
+                        <i class="fas fa-tools"></i> Skills
+                    </a>
                     @endif
 
                 </div>

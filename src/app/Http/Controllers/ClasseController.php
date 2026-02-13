@@ -48,4 +48,9 @@ class ClasseController extends Controller
 
         return view('admin.classes.index', compact('classes'));
     }
+
+    public function destroy(Classe $classe){
+        $classe->delete();
+        return back()->with('success', 'classe supprimé avec succès');
+    }
 }

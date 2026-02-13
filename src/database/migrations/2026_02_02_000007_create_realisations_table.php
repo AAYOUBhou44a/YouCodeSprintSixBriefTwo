@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('realisations', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('brief_id')->constrained();
-            $table->foreignId('student_id')->constrained('users');
+            $table->foreignId('brief_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
             $table->string('link');
             $table->text('commentaire')->nullable();
             $table->enum('status',['evaluated', 'nonEvaluated'])->default('nonEvaluated');

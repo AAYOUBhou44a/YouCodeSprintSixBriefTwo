@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class SkillRequest extends FormRequest
 {
@@ -21,12 +22,15 @@ class SkillRequest extends FormRequest
      */
     public function rules(): array
     {
+        $skill = $this->route('skill');
+        $skill_id = is_object($skill) ? $skill->id : $skill;
+
         return [
-        'code' => 'required|between:2,3|starts_with:C|unique:skills,code',
+        'code' => ['required','between:2,3','starts_with:C',Rule::unique('skills')->ignore($skill_id)],
         // Pour simuler "min_words:2", on vérifie s'il y a au moins un espace
         // 'regex:/^\s*\S+(?:\s+\S+)+\s*$/'
         // size attend un nombre précis (ex: size:2). Pour une plage, on utilise between:2,3.
-        'title' => 'required|min:5|unique:skills,title'
+        'title' => ['required','min:5',Rule::unique('skills')->ignore($skill_id)]
         ];
     }
 

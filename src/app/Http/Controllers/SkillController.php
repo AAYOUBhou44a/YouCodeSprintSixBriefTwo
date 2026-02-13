@@ -14,7 +14,7 @@ class SkillController extends Controller
             'title' => $request->title
         ]);
 
-        return $skill ? redirect()->route('teacher.briefs.create') : back();
+        return back();
     }
 
     public function create(){
@@ -22,4 +22,25 @@ class SkillController extends Controller
 
         return view('admin.skills.create', compact('skills'));
     }
+
+    public function destroy(Skill $skill){
+        $skill->delete();
+        return back()->with('success', 'Compétence supprimé avec succès');
+    }
+
+    public function edit(Skill $skill){
+
+        $skills = Skill::oldest()->get();
+
+        return view('admin.skills.create', compact('skill', 'skills'));
+    }
+
+    public function update(SkillRequest $request, Skill $skill){
+        $data = $request->validated();
+
+        $skill->update($data);
+
+        return back()->with('success', 'Compétence met à jour avec succès');
+    }
 }
+

@@ -18,8 +18,8 @@ return new class extends Migration
             $table->text('description');
             $table->text('content');
             $table->enum('type', ['individuel', 'collectif']);
-            $table->foreignId('sprint_id')->constrained();
-            $table->foreignId('classe_id')->constrained();
+            $table->foreignId('sprint_id')->nullable()->constrained()->onDelete('set null');
+            $table->foreignId('classe_id')->nullable()->constrained()->onDelete('set null');
             // Par convention Laravel (Eloquent), on utilise le snake_case pour les clés étrangères, donc classe_id.
             $table->dateTime('start_date');
             $table->dateTime('end_date');
