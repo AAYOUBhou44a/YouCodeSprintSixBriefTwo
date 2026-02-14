@@ -2,8 +2,9 @@
 
 namespace App\Http\Requests;
 
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class BriefRequest extends FormRequest
 {
@@ -28,8 +29,10 @@ class BriefRequest extends FormRequest
      */
     public function rules(): array
     {
+        $brief = $this->route('brief');
+        $brief_id = is_object($brief) ? $brief->id : $brief;
         return [
-        'title' => 'required|unique:briefs,title|min:5|string',
+        'title' => ['required','min:5','string', Rule::unique('briefs')->ignore($brief_id)],
         'description' => 'required|min:5|string',
         'content' => 'required|string',
         'type' => 'required|in:individuel,collectif',

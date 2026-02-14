@@ -20,10 +20,12 @@
                         <i class="fas fa-check-double"></i> Évaluations
                     </a>
                     @elseif(Auth::check() && Auth::user()->role === 'teacher')
-                    <div class="h-4 w-[1px] bg-slate-200 mx-2"></div>
                     
                     <a href="/briefs/create" class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-emerald-600 bg-emerald-50 rounded-lg border border-emerald-100 flex items-center gap-2">
                         <i class="fas fa-plus-circle"></i> Nouveau Brief
+                    </a>
+                    <a href="/briefs" class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-indigo-600 transition flex items-center gap-2">
+                        <i class="fas fa-book-open"></i> Briefs
                     </a>
                     <a href="/realisations" class="px-3 py-2 text-[10px] font-black uppercase tracking-widest text-slate-600 hover:text-indigo-600 transition flex items-center gap-2">
                         <i class="fas fa-tasks"></i> Réalisations

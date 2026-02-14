@@ -118,12 +118,13 @@
                 </div>
             </div>
 
-            @if($brief->realisations->isEmpty())
+            @if($brief->realisations->isEmpty() && Auth::user()->role === 'student')
                 <a href="/brief/show/{{$brief->id}}" class="inline-flex items-center justify-center w-full py-6 bg-slate-900 hover:bg-indigo-600 text-white rounded-[2.5rem] font-black text-[11px] uppercase tracking-widest transition-all duration-300 shadow-xl shadow-slate-200 group">
                     Soumettre mon travail
                     <i class="fas fa-paper-plane ml-3 group-hover:translate-x-2 group-hover:-translate-y-2 transition-transform"></i>
                 </a>
             @endif
+
         </div>
     </div>
 </div>

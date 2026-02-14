@@ -88,23 +88,27 @@ Route::middleware('auth')->group(function(){
         Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
         
         Route::post('/teacher/briefs', [BriefController::class, 'store']);
+        //breifs
+        Route::delete('/briefs/{brief}', [BriefController::class, 'destroy']);
+
+        Route::get('/briefs/edit/{brief}', [BriefController::class, 'edit']);
+
+        Route::put('/briefs/{brief}', [BriefController::class, 'update']);
+
         // Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
         
         // __ evaluation par le formateur__ 
         Route::get('/realisations', [RealisationController::class, 'index'])->name('realisations');
         Route::get('/realisations/show/{id}', [RealisationController::class, 'show']);
         Route::post('/evaluation', [EvaluationController::class, 'store']);
+
     });
     
     Route::middleware('can:student_only')->group(function(){
 
         // __ ESPACE STUDENT __ 
     
-        // __ les briefs que l'étudiant peut voir
-        Route::get('/briefs', [BriefController::class, 'index'])->name('student.briefs.index')->middleware('can:student_only');
-        Route::get('/briefs/brief/{id}', [BriefController::class, 'brief']);
-       
-    
+        
         // __ Soummission d'un brief par l'étudiant __ 
         Route::get('/brief/show/{id}', [BriefController::class, 'show']); //on n'utilise pas {{id}}
         Route::post('/brief/submit', [BriefController::class, 'submit']);
@@ -114,4 +118,8 @@ Route::middleware('auth')->group(function(){
         Route::get('/evaluations/show/{id}', [EvaluationController::class, 'show']);
     });
 
+    // __ les briefs que l'étudiant peut voir
+    Route::get('/briefs', [BriefController::class, 'index'])->name('student.briefs.index');
+    Route::get('/briefs/brief/{id}', [BriefController::class, 'brief']);
 });
+

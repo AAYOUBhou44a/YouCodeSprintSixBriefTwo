@@ -39,17 +39,35 @@
                 </p>
                 
                 <div class="flex flex-wrap items-center gap-6">
-                    
+                    @if(Auth::user()->role === 'student')
                     <a href="/brief/show/{{$latestBrief->id}}" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 transition-all hover:-translate-y-1 shadow-xl shadow-slate-200">
                         Soumettre mon travail
                     </a>
+                    @endif
                  
                     
                     <a href="/briefs/brief/{{$latestBrief->id}}" class="text-slate-400 hover:text-indigo-600 transition font-black text-[10px] uppercase tracking-[0.2em]">
                         Voir le sujet complet
                     </a>
+                    @if(Auth::user()->role === 'teacher')
+                        <div class="flex gap-2 ">
+                            <a href="/briefs/edit/{{$latestBrief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
+                                <i class="fas fa-pen-nib text-xs"></i>
+                            </a>
+    
+                            <form action="/briefs/{{$latestBrief->id}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
-            </div>
+
+
+                </div>
 
             <i class="fas fa-rocket absolute -right-10 -bottom-10 text-[15rem] text-slate-50 group-hover:text-indigo-50/50 transition-colors -rotate-12 pointer-events-none"></i>
         </div>
@@ -57,7 +75,7 @@
     </section>
     
     <section>
-        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8 ml-4">Historique des Sprints</h3>
+        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8 ml-4">tout les briefs</h3>
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             
@@ -77,8 +95,26 @@
                         <div class="w-8 h-8 rounded-xl bg-slate-900 text-white border-2 border-white flex items-center justify-center text-[9px] font-black shadow-sm">{{$skill->code}}</div>
                         @endforeach
                     </div>
+                    @if(Auth::user()->role === 'teacher')
+                        <div class="flex gap-2 mr-[80px]">
+                            <a href="/briefs/edit/{{$latestBrief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
+                                <i class="fas fa-pen-nib text-xs"></i>
+                            </a>
+    
+                            <form action="/briefs/{{$brief->id}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                    
+
+
                     <a href="/briefs/brief/{{$brief->id}}" class="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:underline">
-                        Voir Feedback
+                        Voir le sujet complet
                     </a>
                 </div>
             </div>
