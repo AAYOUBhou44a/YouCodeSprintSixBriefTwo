@@ -1,0 +1,32 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     */
+    public function up(): void
+    {
+        Schema::create('realisations', function (Blueprint $table) {
+            $table->id();
+            $table->timestamps();
+            $table->foreignId('brief_id')->constrained()->onDelete('cascade');
+            $table->foreignId('student_id')->constrained('users')->onDelete('cascade');
+            $table->string('link');
+            $table->text('commentaire')->nullable();
+            $table->enum('status',['evaluated', 'nonEvaluated'])->default('nonEvaluated');
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     */
+    public function down(): void
+    {
+        Schema::dropIfExists('realisations');
+    }
+};

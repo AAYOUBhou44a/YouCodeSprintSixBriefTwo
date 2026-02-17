@@ -15,6 +15,30 @@ class SprintController extends Controller
             'end_date' => $request->end_date
         ]);
 
-        return back();
+        return redirect()->route('sprints.index');
+    }
+
+    public function index(){
+        $sprints = Sprint::oldest()->get();
+
+        return view('admin.sprints.index', compact('sprints'));
+    }
+
+    public function destroy(Sprint $sprint){
+
+        $sprint->delete();
+
+        return back()->with('success', 'sprint supprimé avec succès');
+    }
+
+    public function edit(Sprint $sprint){
+
+        return view('admin.sprints.create', compact('sprint'));
+    }
+
+    public function update(SprintRequest $request,Sprint $sprint){
+        $data = $request->validated();
+        $sprint->update($data);
+        return redirect()->route('sprints.index')->with('success', 'sprint mis à jour avec succès');
     }
 }

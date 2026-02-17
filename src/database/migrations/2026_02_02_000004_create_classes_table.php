@@ -15,9 +15,16 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name')->unique();
-            $table->foreignId('teacher_id')->constrained('users');
+            $table->foreignId('teacher_id')->nullable()->constrained('users')->onDelete('set null');
             // On précise que teacher_id fait référence à l'ID de la table 'users'
-        });
+            // 2. ON ACTIVE LE LIEN VERS LES USERS ICI
+            });
+            Schema::table('users', function (Blueprint $table) {
+                $table->foreign('classe_id')
+                    ->references('id')
+                    ->on('classes')
+                    ->onDelete('set null');
+            });
     }
 
     /**
@@ -25,6 +32,11 @@ return new class extends Migration
      */
     public function down(): void
     {
+        // On retire la contrainte sur users AVANT de supprimer la table classes
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropForeign(['classe_id']);
+        });
+
         Schema::dropIfExists('classes');
     }
 };

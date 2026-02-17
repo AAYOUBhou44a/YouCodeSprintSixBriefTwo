@@ -22,7 +22,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email',
+            'email' => 'required|email|exists:users,email',
             'password' => 'required|min:5'
         ];
     }
@@ -32,6 +32,7 @@ class LoginRequest extends FormRequest
         return [
             'email.required' => 'email ne peut pas etre vide',
             'email.email' => 'email Invalid',
+            'email.exists' => 'email inexistant',
             'password.required' => 'le mot de passe ne peut pas etre vide',
             'password.min' => 'le mot de passe doit contenir au moins 5 caractères'
         ];

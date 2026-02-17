@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
 <div class="max-w-6xl mx-auto w-full p-6 lg:p-10">
     
@@ -14,6 +13,7 @@
         </div>
     </div>
 
+    @if($latestBrief)
     <section class="mb-16">
         <div class="flex items-center gap-3 mb-8">
             <span class="relative flex h-3 w-3">
@@ -26,72 +26,108 @@
         <div class="bg-white rounded-[3rem] border-2 border-indigo-600 p-10 shadow-2xl shadow-indigo-100/50 relative overflow-hidden group">
             <div class="absolute top-0 right-0 p-10 text-right hidden md:block">
                 <p class="text-[10px] font-black text-indigo-400 uppercase tracking-widest">Échéance</p>
-                <p class="text-xl font-black text-slate-900">05 Fév. 2026</p>
+                <p class="text-xl font-black text-slate-900">{{$latestBrief->created_at->diffForHumans()}}</p>
             </div>
             
             <div class="relative z-10 max-w-2xl">
                 <span class="px-5 py-2 bg-indigo-600 text-white rounded-xl text-[10px] font-black uppercase tracking-[0.2em] shadow-lg shadow-indigo-200">
-                    Sprint 03
+                    {{$latestBrief->sprint->name}}
                 </span>
-                <h4 class="text-4xl font-black text-slate-900 mt-6 mb-4 leading-tight">Architecture d'une API Sécurisée</h4>
+                <h4 class="text-4xl font-black text-slate-900 mt-6 mb-4 leading-tight">{{$latestBrief->title}}</h4>
                 <p class="text-slate-500 text-base leading-relaxed mb-8">
-                    Mise en place d'un système d'authentification JWT et gestion des droits d'accès (RBAC) pour une plateforme de gestion scolaire.
+                    {{$latestBrief->description}}
                 </p>
                 
                 <div class="flex flex-wrap items-center gap-6">
-                    <a href="#" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 transition-all hover:-translate-y-1 shadow-xl shadow-slate-200">
+                    @if(Auth::user()->role === 'student')
+                    <a href="/brief/show/{{$latestBrief->id}}" class="bg-slate-900 text-white px-8 py-4 rounded-2xl font-black text-[10px] uppercase tracking-widest hover:bg-indigo-600 transition-all hover:-translate-y-1 shadow-xl shadow-slate-200">
                         Soumettre mon travail
                     </a>
-                    <a href="#" class="text-slate-400 hover:text-indigo-600 transition font-black text-[10px] uppercase tracking-[0.2em]">
+                    @endif
+                 
+                    
+                    <a href="/briefs/brief/{{$latestBrief->id}}" class="text-slate-400 hover:text-indigo-600 transition font-black text-[10px] uppercase tracking-[0.2em]">
                         Voir le sujet complet
                     </a>
+                    @if(Auth::user()->role === 'teacher')
+                        <div class="flex gap-2 ">
+                            <a href="/briefs/edit/{{$latestBrief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
+                                <i class="fas fa-pen-nib text-xs"></i>
+                            </a>
+    
+                            <form action="/briefs/{{$latestBrief->id}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
                 </div>
-            </div>
+
+
+                </div>
 
             <i class="fas fa-rocket absolute -right-10 -bottom-10 text-[15rem] text-slate-50 group-hover:text-indigo-50/50 transition-colors -rotate-12 pointer-events-none"></i>
         </div>
+        
     </section>
-
+    
     <section>
-        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8 ml-4">Historique des Sprints</h3>
-
+        <h3 class="text-[10px] font-black text-slate-400 uppercase tracking-[0.3em] mb-8 ml-4">tout les briefs</h3>
+        
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            
+            @foreach($briefs as $brief)
             
             <div class="bg-white rounded-[2.5rem] border border-slate-200 p-8 hover:border-indigo-300 transition-all group shadow-sm">
                 <div class="flex justify-between items-start mb-6">
                     <span class="w-12 h-12 flex items-center justify-center bg-slate-100 text-slate-800 rounded-2xl font-black text-sm group-hover:bg-indigo-600 group-hover:text-white transition-colors">02</span>
                     <span class="bg-emerald-50 text-emerald-600 text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-emerald-100">Validé</span>
                 </div>
-                <h5 class="text-xl font-black text-slate-900 mb-2">Système de Débriefing</h5>
-                <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">Gestion des retours pédagogiques entre formateurs et étudiants.</p>
+                <h5 class="text-xl font-black text-slate-900 mb-2">{{$brief->title}}</h5>
+                <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">{{$brief->description}}</p>
                 
                 <div class="mt-8 pt-6 border-t border-slate-50 flex justify-between items-center">
                     <div class="flex -space-x-2">
-                        <div class="w-8 h-8 rounded-xl bg-slate-900 text-white border-2 border-white flex items-center justify-center text-[9px] font-black shadow-sm">C1</div>
-                        <div class="w-8 h-8 rounded-xl bg-slate-900 text-white border-2 border-white flex items-center justify-center text-[9px] font-black shadow-sm">C4</div>
+                        @foreach($brief->skills as $skill)
+                        <div class="w-8 h-8 rounded-xl bg-slate-900 text-white border-2 border-white flex items-center justify-center text-[9px] font-black shadow-sm">{{$skill->code}}</div>
+                        @endforeach
                     </div>
-                    <a href="#" class="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:underline">
-                        Voir Feedback
+                    @if(Auth::user()->role === 'teacher')
+                        <div class="flex gap-2 mr-[80px]">
+                            <a href="/briefs/edit/{{$latestBrief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
+                                <i class="fas fa-pen-nib text-xs"></i>
+                            </a>
+    
+                            <form action="/briefs/{{$brief->id}}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-rose-500 hover:text-white transition-all flex items-center justify-center">
+                                    <i class="fas fa-trash-alt text-xs"></i>
+                                </button>
+                            </form>
+                        </div>
+                    @endif
+                    
+
+
+                    <a href="/briefs/brief/{{$brief->id}}" class="text-[10px] font-black text-indigo-600 uppercase tracking-widest hover:underline">
+                        Voir le sujet complet
                     </a>
                 </div>
             </div>
-
-            <div class="bg-white rounded-[2.5rem] border border-slate-200 p-8 opacity-75 hover:opacity-100 transition-all group shadow-sm">
-                <div class="flex justify-between items-start mb-6">
-                    <span class="w-12 h-12 flex items-center justify-center bg-slate-100 text-slate-400 rounded-2xl font-black text-sm">01</span>
-                    <span class="bg-amber-50 text-amber-600 text-[9px] font-black px-4 py-1.5 rounded-full uppercase tracking-widest border border-amber-100">En Correction</span>
-                </div>
-                <h5 class="text-xl font-black text-slate-900 mb-2 italic text-slate-500">Maquetter une application SaaS</h5>
-                <p class="text-sm text-slate-400 leading-relaxed line-clamp-2">Phase de design et prototypage sous Figma pour une gestion de stock.</p>
-                
-                <div class="mt-8 pt-6 border-t border-slate-50 flex justify-end items-center">
-                    <span class="text-[9px] font-black text-slate-400 uppercase tracking-widest italic">
-                        <i class="far fa-clock mr-1"></i> Soumis le 12/01
-                    </span>
-                </div>
-            </div>
-
+            
+            @endforeach
+            
         </div>
     </section>
+    @else
+        <div class="flex flex-col items-center justify-center p-20 bg-white rounded-[3rem] border-2 border-dashed border-slate-200">
+            <h2 class="text-2xl font-black text-slate-900">Aucun brief pour le moment</h2>
+            <p class="text-slate-500 mt-2">Dès qu'un projet sera publié, il apparaîtra ici.</p>
+        </div>
+    @endif
 </div>
 @endsection

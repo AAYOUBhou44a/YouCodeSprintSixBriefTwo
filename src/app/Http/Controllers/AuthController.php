@@ -22,9 +22,9 @@ class AuthController extends Controller
 
             switch($user->role){
                 case 'admin':
-                    return redirect()->route('admin.users.create');
+                    return redirect()->route('users.index');
                 case 'teacher':
-                    return redirect()->route('teacher.briefs.create');
+                    return redirect()->route('realisations');
                 case 'student':
                     return redirect()->route('student.briefs.index');
                 default :
@@ -32,7 +32,9 @@ class AuthController extends Controller
             }
             
         }
-        return back();
+        return back()->withErrors([
+            'email' => 'L\'adresse email ou le mot de passe est incorrect'
+        ])->onlyInput('email');
     }
 
     public function store(RegisterRequest $request){
@@ -46,6 +48,16 @@ class AuthController extends Controller
         'classe_id' => null
         ]);
 
-        return back();
+        return redirect()->route('users.index');
+    }
+
+    public function logout(Request $request){
+        // Déconnecte l'utilisateur du Guard
+        Auth::logout();
+        // Supprime toutes les données de la session actuelle
+        $request->session()->invalidate();
+        // Régénère le jeton CSRF pour éviter les failles de sécurité
+        $request->session()->regenerateToken();
+        return redirect()->route('login');
     }
 }

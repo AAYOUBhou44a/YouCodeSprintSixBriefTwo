@@ -7,6 +7,8 @@ use App\Http\Controllers\BriefController;
 use App\Http\Controllers\SkillController;
 use App\Http\Controllers\ClasseController;
 use App\Http\Controllers\SprintController;
+use App\Http\Controllers\EvaluationController;
+use App\Http\Controllers\RealisationController;
 
 // Mettre une fonction de vue (return view(...)) dans le web.php est toléré uniquement 
 // pour des pages extrêmement simples qui n'ont aucune donnée
@@ -14,52 +16,110 @@ use App\Http\Controllers\SprintController;
 Route::get('/login', function () {
     return view('auth.login');
 })->name('login');
+Route::post('/logout', [AuthController::class, 'logout']);
 
 // on a les memes liens mais les méthodes sont défférents 
 Route::post('/login', [AuthController::class, 'submitLogin']);
 
-// __ ESPACE ADMIN __ 
 
+Route::middleware('auth')->group(function(){
+    Route::middleware('can:admin_only')->group(function(){
+        // __ ESPACE ADMIN __ 
+    
+        // __ CLASSES __ 
+        Route::get('/classes/create', [ClasseController::class, 'create'])->name('admin.classes.create');
+        
+        Route::post('/classes', [ClasseController::class, 'store']);
+        
+        Route::get('/classes', [ClasseController::class, 'index'])->name('classes.index');
 
-// __ CLASSES __ 
-Route::get('/classes/create', [ClasseController::class, 'create'])->name('admin.classes.create');
+        Route::delete('/classes/{classe}', [ClasseController::class, 'destroy']);
 
-Route::post('/classes', [ClasseController::class, 'store']);
+        Route::get('/classes/edit/{classe}', [ClasseController::class, 'edit']);
 
+        Route::put('/classes/{classe}', [ClasseController::class, 'update']);
 
-// __ USERS __
-Route::get('/users/create', function(){
-    return view('admin.users.create');
-})->name('admin.users.create');
+        // __ USERS __
+        Route::get('/users/create', function(){
+            return view('admin.users.create');
+        })->name('users.create');
+        
+        Route::post('/users', [AuthController::class, 'store']);
 
-Route::post('/users', [AuthController::class, 'store']);
+        Route::get('/users', [UserController::class, 'index'])->name('users.index');
 
-// __ SPRINTS __ 
-Route::get('/sprints/create', function(){
-    return view('admin.sprints.create');
-})->name('admin.sprints.create');
+        Route::delete('/users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-Route::post('/sprints', [SprintController::class, 'store']);
+        Route::get('/users/edit/{user}', [UserController::class , 'edit']);
 
-// __ SKILLS __ 
-Route::get('/skills/create', function(){
-    return view('admin.skills.create');
-})->name('admin.skills.create');
+        Route::put('/users/{user}', [UserController::class, 'update']);
+        
+        // __ SPRINTS __ 
+        Route::get('/sprints/create', function(){
+            return view('admin.sprints.create');
+        })->name('sprints.create');
+        
+        Route::post('/sprints', [SprintController::class, 'store']);
 
-Route::post('/skills', [SkillController::class, 'store']);
+        Route::get('/sprints', [SprintController::class, 'index'])->name('sprints.index');
 
-// __ ESPACE TEACHER __ 
-Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
+        Route::delete('/sprints/{sprint}', [SprintController::class, 'destroy']);
 
-// Route::get('/briefs/create', function(){
-//     return view('teacher.briefs.create');
-// })->name('teacher.briefs.create');
+        Route::get('/sprints/edit/{sprint}', [SprintController::class, 'edit']);
 
-Route::post('/teacher/briefs', [BriefController::class, 'store']);
-// Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
+        Route::put('/sprints/{sprint}', [SprintController::class, 'update']);
+        
+        // __ SKILLS __ 
+        Route::get('/skills/create', [SkillController::class, 'create'])->name('admin.skills.create');
+        
+        Route::post('/skills', [SkillController::class, 'store']);
 
+        Route::get('/skills', [SkillController::class, 'index']);
 
-// __ ESPACE STUDENT __ 
-Route::get('/briefs', function(){
-    return view('student.briefs.index');
-})->name('student.briefs.index');
+        Route::delete('/skills/{skill}', [SkillController::class, 'destroy']);
+
+        Route::get('/skills/edit/{skill}', [SkillController::class, 'edit']);
+
+        Route::put('/skills/{skill}', [SkillController::class, 'update']);
+        
+    });
+    Route::middleware('can:teacher_only')->group(function(){
+        // __ ESPACE TEACHER __ 
+        Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
+        
+        Route::post('/teacher/briefs', [BriefController::class, 'store']);
+        //breifs
+        Route::delete('/briefs/{brief}', [BriefController::class, 'destroy']);
+
+        Route::get('/briefs/edit/{brief}', [BriefController::class, 'edit']);
+
+        Route::put('/briefs/{brief}', [BriefController::class, 'update']);
+
+        // Route::get('/briefs/create', [BriefController::class, 'create'])->name('teacher.briefs.create');
+        
+        // __ evaluation par le formateur__ 
+        Route::get('/realisations', [RealisationController::class, 'index'])->name('realisations');
+        Route::get('/realisations/show/{id}', [RealisationController::class, 'show']);
+        Route::post('/evaluation', [EvaluationController::class, 'store']);
+
+    });
+    
+    Route::middleware('can:student_only')->group(function(){
+
+        // __ ESPACE STUDENT __ 
+    
+        
+        // __ Soummission d'un brief par l'étudiant __ 
+        Route::get('/brief/show/{id}', [BriefController::class, 'show']); //on n'utilise pas {{id}}
+        Route::post('/brief/submit', [BriefController::class, 'submit']);
+        
+        // __ Evaluations que l'étudiant peut voir __ 
+        Route::get('/evaluations', [EvaluationController::class, 'index']);
+        Route::get('/evaluations/show/{id}', [EvaluationController::class, 'show']);
+    });
+
+    // __ les briefs que l'étudiant peut voir
+    Route::get('/briefs', [BriefController::class, 'index'])->name('student.briefs.index');
+    Route::get('/briefs/brief/{id}', [BriefController::class, 'brief']);
+});
+

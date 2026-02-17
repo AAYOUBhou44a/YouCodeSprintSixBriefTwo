@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class RegisterRequest extends FormRequest
@@ -33,9 +34,15 @@ class RegisterRequest extends FormRequest
 
     public function rules(): array
     {
+        // On récupère l'ID de l'utilisateur présent dans l'URL
+        $user = $this->route('user');
+        $user_id = is_object($user) ? $user->id : $user;
         return [
         'name' => 'required|min:6',
-        'email' => 'required|email|unique:users,email',
+        // On demande d'ignorer cet ID spécifique pour la règle unique
+        // Ajout de la virgule AVANT le $user_id
+        // unique vérifie si l'email est présent , ignore le dit d'ignorer l'id de cet utilisateur s'il est null il ignorera personne 
+        'email' => ['required','email',Rule::unique('users')->ignore($user_id),],
         'password' => 'required|min:5|confirmed',
         'role' => 'required|in:teacher,student',
         'age' => 'required|integer|between:18,60',// Pas d'espace après la virgule

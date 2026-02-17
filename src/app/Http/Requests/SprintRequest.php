@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SprintRequest extends FormRequest
@@ -21,8 +22,10 @@ class SprintRequest extends FormRequest
      */
     public function rules(): array
     {
+        $sprint = $this->route('sprint');
+        $sprint_id = is_object($sprint) ? $sprint->id : $sprint;
         return [
-        'name' => 'required|unique:sprints,name|min:5',
+        'name' => ['required','min:5',Rule::unique('sprints')->ignore($sprint_id)],
         'start_date' => 'required|date|after_or_equal:today|before_or_equal:2026-05-15',
         'end_date' => 'required|date|after:start_date|before_or_equal:2026-05-15'
         ];

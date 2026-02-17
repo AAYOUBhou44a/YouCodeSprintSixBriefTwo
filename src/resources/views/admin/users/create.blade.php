@@ -31,14 +31,17 @@
                 </div>
             </div>
         @endif -->
-        <form action="/users" method="POST" class="p-8 md:p-12 space-y-10">
+        <form action="{{isset($user) ? '/users/' . $user->id : '/users'}}" method="POST" class="p-8 md:p-12 space-y-10">
             @csrf
+            @if(isset($user))
+                @method('PUT')
+            @endif
             {{-- Sélection du Rôle --}}
             <div class="space-y-4">
                 <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Type d'utilisateur</label>
                 <div class="grid grid-cols-2 gap-4">
                     <label class="relative group cursor-pointer">
-                        <input type="radio" name="role" value="student" class="peer sr-only" checked>
+                        <input type="radio" name="role" value="student" class="peer sr-only" {{ isset($user) && $user->role === 'student' ? 'checked' : ''}}>
                         <div class="flex flex-col items-center justify-center p-6 border-2 border-slate-100 rounded-3xl bg-slate-50/50 transition-all peer-checked:border-indigo-600 peer-checked:bg-indigo-50/30 peer-checked:ring-4 peer-checked:ring-indigo-50">
                             <i class="fas fa-user-graduate mb-3 text-2xl text-slate-400 peer-checked:text-indigo-600"></i>
                             <span class="text-sm font-bold text-slate-600 peer-checked:text-indigo-900">Apprenant</span>
@@ -46,7 +49,7 @@
                     </label>
 
                     <label class="relative group cursor-pointer">
-                        <input type="radio" name="role" value="teacher" class="peer sr-only">
+                        <input type="radio" name="role" value="teacher" class="peer sr-only" {{ isset($user) && $user->role === 'teacher' ? 'checked' : ''}}>
                         <div class="flex flex-col items-center justify-center p-6 border-2 border-slate-100 rounded-3xl bg-slate-50/50 transition-all peer-checked:border-indigo-600 peer-checked:bg-indigo-50/30 peer-checked:ring-4 peer-checked:ring-indigo-50">
                             <i class="fas fa-chalkboard-teacher mb-3 text-2xl text-slate-400 peer-checked:text-indigo-600"></i>
                             <span class="text-sm font-bold text-slate-600 peer-checked:text-indigo-900">Formateur</span>
@@ -62,7 +65,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6">
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">nom complet</label>
-                    <input type="text" name="name" placeholder="Jean" required 
+                    <input type="text" name="name" value="{{$user->name ?? old('name')}}" placeholder="Jean" required 
                         class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                         @error('name')
                             <span style="color: red; font-size: 12px;">{{$message}}</span>
@@ -77,7 +80,7 @@
 
                 <div class="md:col-span-2 space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Email Professionnel</label>
-                    <input type="email" name="email" placeholder="jean.dupont@ecole.com" required 
+                    <input type="email" name="email" value="{{$user->email ?? old('email')}}" placeholder="jean.dupont@ecole.com" required 
                         class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                         @error('email')
                             <span style="color: red; font-size: 12px;">{{$message}}</span>
@@ -109,7 +112,7 @@
 
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Âge</label>
-                    <input type="number" name="age" placeholder="22" 
+                    <input type="number" name="age" value="{{$user->age ?? old('age')}}" placeholder="22" 
                         class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                         @error('age')
                             <span style="color: red; font-size: 12px;">{{$message}}</span>
@@ -118,7 +121,7 @@
 
                 <div class="space-y-2">
                     <label class="block text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Téléphone</label>
-                    <input type="tel" name="phone" placeholder="06 00 00 00 00" 
+                    <input type="tel" name="phone" value="{{$user->phone ?? old('phone')}}" placeholder="06 00 00 00 00" 
                         class="w-full px-6 py-4 bg-slate-50 border border-slate-200 rounded-2xl focus:ring-4 focus:ring-indigo-500/10 focus:border-indigo-500 focus:bg-white outline-none transition font-semibold">
                         @error('phone')
                             <span style="color: red; font-size: 12px;">{{$message}}</span>

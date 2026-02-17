@@ -17,9 +17,18 @@
         @endauth -->
 
         <div class="flex-1 flex flex-col">
-            
             @include('partials.header')
-
+            @if(session('success'))
+            <div class="mb-6 p-4 bg-emerald-50 border-l-4 border-emerald-500 text-emerald-700 rounded-r-xl shadow-sm flex items-center justify-between animate-fade-in">
+                <div class="flex items-center">
+                    <i class="fas fa-check-circle mr-3"></i>
+                    <span class="text-sm font-bold uppercase tracking-tight">{{session('success')}}</span>
+                </div>
+                <button onclick="this.parentElement.remove()" class="text-emerald-400 hover:text-emerald-600">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            @endif
             <main class="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
                 @yield('content')
             </main>

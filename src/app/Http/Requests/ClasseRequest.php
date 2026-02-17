@@ -22,8 +22,10 @@ class ClasseRequest extends FormRequest
      */
     public function rules(): array
     {
+        $classe = $this->route('classe');
+        $classe_id = is_object($classe) ? $classe->id : $classe;
         return [
-        'name' => 'required|min:5|unique:classes,name',
+        'name' => ['required','min:5', Rule::unique('classes')->ignore($classe_id)],
         // ,'exists:users,id'
         'teacher_id' => ['required', Rule::exists('users', 'id')->where('role', 'teacher')],
         'student_ids' => 'required|array|min:1',
