@@ -97,7 +97,7 @@
                     </div>
                     @if(Auth::user()->role === 'teacher')
                         <div class="flex gap-2 mr-[80px]">
-                            <a href="/briefs/edit/{{$latestBrief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
+                            <a href="/briefs/edit/{{$brief->id}}" class="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 hover:bg-slate-900 hover:text-white transition-all flex items-center justify-center">
                                 <i class="fas fa-pen-nib text-xs"></i>
                             </a>
     
